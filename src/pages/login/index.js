@@ -1,4 +1,7 @@
+import {login} from "../../firebase.js";
+
 export default () => {
+
   const container = document.createElement("div");
   container.classList.add("container-login")
   const template = `
@@ -18,13 +21,20 @@ export default () => {
     </div>
       
       
-      <button class="button-login">Entrar</button>
+      <button id="teste" class="button-login">Entrar</button>
       <p class="p-login">ou</p>
       <button class="button-google-login"><img src="./img/icon-google.png" alt="icon-google" class="icon-google"><a href="" class="continue-login">Continue com o Google</a></button>
       <a href="./#registro" class="cadastrese-login">Não tem uma conta? Cadastre-se</a>    
       </section>
        `;
   container.innerHTML = template;
+function teste(){
+
+      const trylogin = document.querySelector("#teste");
+
+      trylogin.addEventListener("click", login);
+   }
   
   return container;
 };
+
