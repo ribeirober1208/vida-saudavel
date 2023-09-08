@@ -2,8 +2,7 @@ import home from "./pages/home/index.js";
 import login from "./pages/login/index.js";
 import favorite from "./pages/favorite/index.js";
 import registro from "./pages/registro/index.js";
-import './pages/login/index.js'
-
+import './pages/login/index.js';
 
 const main = document.querySelector("#root");
 const int = () => {
@@ -22,6 +21,7 @@ const int = () => {
         case "#registro":
            main.appendChild(registro());
             break;
+
         default:
             main.appendChild(home());
     }
