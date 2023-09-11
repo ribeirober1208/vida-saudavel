@@ -1,9 +1,9 @@
-import {loginUser} from '../../firebase/firebase.js';
+import { loginUser } from "../../firebase/firebase.js";
 
 export default () => {
   const container = document.createElement("div");
-  container.classList.add("container-login")
-  
+  container.classList.add("container-login");
+
   const template = `
   <figure class="figure-login">
     <img src="./img/Logo.png" alt="logo" class="logo">
@@ -25,7 +25,7 @@ export default () => {
     <a href="./#registro" class="cadastrese-login">Não tem uma conta? Cadastre-se</a>    
     </section>
      `;
-  
+
   container.innerHTML = template;
   document.body.appendChild(container);
   const emailInput = document.querySelector("#input-email");
@@ -36,15 +36,15 @@ export default () => {
     event.preventDefault(); // Impede o envio do formulário padrão
 
     loginUser(emailInput.value, passwordInput.value)
-    .then((userCredential) => {
-      window.location.href = "#home";
-      const user = userCredential.user;
-    })
-    .catch((error) => {
-      console.log(error)
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    });
-  })
+      .then((userCredential) => {
+        window.location.href = "#home";
+        const user = userCredential.user;
+      })
+      .catch((error) => {
+        console.log(error);
+        const errorCode = error.code;
+        const errorMessage = error.message;
+      });
+  });
   return container;
-}
+};
