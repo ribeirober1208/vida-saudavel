@@ -1,6 +1,6 @@
 export default () => {
-    const container = document.createElement('div');
-    const template = `
+  const container = document.createElement("div");
+  const template = `
     <header>
     <span id="containerUser">
       <img src="./img/MaleUser.png" alt="user" class="icons">
@@ -17,7 +17,7 @@ export default () => {
     </span>
   </footer> 
      `;
-    container.innerHTML = template;
-    return container;
-    
-}
+  container.innerHTML = template;
+
+  return container;
+};
