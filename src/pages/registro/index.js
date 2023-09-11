@@ -2,25 +2,23 @@ export default () => {
   const container = document.createElement("div");
   container.classList.add("container-registro");
   const template = `
-     
-    <header id="logo-registro">
-     <title>Cadastro</title> 
-     <img src="./img/Logo.png" alt="Viva Saúde" width="200" height="200">
-     <h1 id="text-slogan"><p>Compartilhe o melhor da alimentação saudável</p>
-     <p>na sua nova rede social</p></h1>
-    </header>
-    <body id="body-registro">
-    <main class="main-registro">
+
+    <header> </header>
+    <main class="main-registro"> 
+    <figure class="logo-registro">
+     <img src="./img/Logo.png" alt="logo" class="logo">
+     <h3 class="frase-registro">Compartilhe o melhor da alimentação saudável na sua nova rede social</h3>
+    </figure>
       <div class="container-forms">
         <form>
           <div class="form-field">
-          <li><input type="text" id="name" placeholder="Nome" />
+          <li><input type="text" id="preencher" placeholder="Nome" />
           
           <div class="error" id="name-required-error">Nome é obrigatório</div>
           <div class="error" id="name-min-length-error">Nome deve ter pelo menos 3 caracteres</div>
           </li>
           
-          <li><input type="email" id="email" placeholder="Email" />
+          <li><input type="email" id="preencher" placeholder="Email" />
           
           <div class="error" id="email-required-error">Email é obrigatório</div>
           <div class="error" id="email-invalid-error">Email inválido</div>
@@ -29,7 +27,7 @@ export default () => {
           
           <li>
           <div class="senha-input">
-             <input type="password" id="password" placeholder="Senha" />
+             <input type="password" id="preencher"" placeholder="Senha" />
              <img src="./img/hide.png" alt="ocultar" width="25" height="25" class="toggle-password" data-target="password">
              </div>
              
@@ -39,7 +37,7 @@ export default () => {
 
              <li>
              <div class="confirme-input">
-             <input type="password" id="confirmPassword" placeholder="Confirme sua senha" />
+             <input type="password" id="preencher" placeholder="Confirme sua senha" />
              <img src="./img/hide.png" alt="ocultar" width="25" height="25" class="toggle-password" data-target="confirmPassword">
              </div>
              
@@ -51,11 +49,10 @@ export default () => {
        </form>
      </div>
     </main>
-   
-    </body>
+    <footer></footer>
     <script type="module" src="main.js"></script>
     <script src="./src/pages/registro/registro.js"></script>
-    
+   
        `;
   container.innerHTML = template;
   return container;
