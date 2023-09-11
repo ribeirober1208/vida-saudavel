@@ -1,5 +1,5 @@
 import { addDoc, getDocs, query, where } from "firebase/firestore";
-import { createUser, dbUsers } from "../../firebaseConfig";
+import { createUser, dbUsers } from "../../firebase/firebaseConfig";
 
 // Essa função é responsável por validar o email
 async function validateEmail(email) {
