@@ -1,34 +1,39 @@
-import home from "./pages/home/home.js";
-import login from "./pages/login/login.js";
-import criar from "./pages/criar/criar.js";
-import favorite from "./pages/favorite/favorite.js";
+import home from "./pages/home/index.js";
+import login from "./pages/login/index.js";
+import favorite from "./pages/favorite/index.js";
+import registro from "./pages/registro/index.js";
+import { bindEvents } from "./pages/registro/registro.js";
 
 const main = document.querySelector("#root");
-const int = () => {
-    window.addEventListener("hashchange", () => { //mudança de rota hashchange
-        main.innerHTML = "";
-        switch (window.location.hash) {
-            case " ":
-                main.appendChild(home());
-                break;
-            case "#login":
-                main.appendChild(login());
-                break;
-            case "#criar":
-                main.appendChild(criar());
-                break;
-            case "#favorite":
-                main.appendChild(favorite());
-                break;
-            default:
-                main.appendChild(home());
-        }
+const init = () => {
+  //mudança de rota hashchange
+  main.innerHTML = "";
+  switch (window.location.hash) {
+    case "#home":
+      main.appendChild(home());
+      break;
+    case "#login":
+      main.appendChild(login());
+      break;
+    case "#favorite":
+      main.appendChild(favorite());
+      break;
+    case "#registro":
+      main.appendChild(registro());
 
-    })
+      bindEvents();
+      break;
 
-}
+    default:
+      main.appendChild(home());
+  }
+};
+
+window.addEventListener("hashchange", () => {
+  init();
+});
 
 window.addEventListener("load", () => {
-    main.appendChild(home());
-    int();
-})
+  main.appendChild(login());
+  init();
+});
