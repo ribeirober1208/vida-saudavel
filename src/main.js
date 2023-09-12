@@ -4,6 +4,7 @@ import favorite from "./pages/favorite/index.js";
 import registro from "./pages/registro/index.js";
 import { bindEvents } from "./pages/registro/registro.js";
 
+
 const main = document.querySelector("#root");
 const init = () => {
   //mudança de rota hashchange

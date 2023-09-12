@@ -87,8 +87,6 @@ input.error-input {
 
 .confirme-img {
     margin-left: 20px;
-    margin-top: 300px;
-    boder: solid 5px black;
 }
 
 a:link {
@@ -217,8 +215,8 @@ a:hover {
     }
 
     .frase-registro {
-        width: 50%;
-        margin-left: 250px;
+        width: 100%;
+    
     }
 
     .container-forms {
@@ -252,7 +250,7 @@ a:hover {
         width: 500px;
         height: 80%;
         color: white;
-        width: 80%;
+        width: 100%;
         margin-left: 100px;
     }
     .container-forms {
