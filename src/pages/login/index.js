@@ -30,7 +30,17 @@ export default () => {
   document.body.appendChild(container);
   const emailInput = document.querySelector("#input-email");
   const passwordInput = document.querySelector("#input-password");
+
+  const togglePasswordIcon = document.querySelector(".input-icon-hide");
+
   const btnLogin = document.querySelector("#button-login");
+
+  togglePasswordIcon.addEventListener("click", () => {
+    const type = passwordInput.type === "password" ? "text" : "password";
+    passwordInput.type = type;
+    const icon = type === "password" ? "Hide" : "Show";
+    togglePasswordIcon.setAttribute("src", `./img/${icon}.png`);
+  });
 
   btnLogin.addEventListener("click", (event) => {
     event.preventDefault(); // Impede o envio do formulário padrão
