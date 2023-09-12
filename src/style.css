@@ -4,7 +4,6 @@
     box-sizing: border-box;
 }
 
-
 header {
     background-color: #7ed957;
     border: 1px solid #7ed957;
@@ -32,8 +31,4 @@ footer {
 
 .icons {
     width: 8vw;
-}
-
-<<<<<<< HEAD main {
-    background-color: white;
 }
