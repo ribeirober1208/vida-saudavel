@@ -3,6 +3,8 @@
     padding: 0;
     font-family: 'Open Sans', sans-serif;
 }
+
+
 .figure-login{
     display: flex;
     justify-content: center;
@@ -11,11 +13,7 @@
 }
 .container-login{
     background-color:#7ED957 ;
-    height: 100%;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-attachment: fixed;
+    height: 100vh;
 }
 .logo{
     width: 80vw;
@@ -24,7 +22,6 @@
     width: 28px;
 }
 .frase-login{
-   
    color: white;
    width: 90vw;
    height: 16vw;
@@ -41,7 +38,7 @@
 }
 .input-login{
     border-radius: 30px;
-    width: 60vw;
+    width: 70vw;
     height: 14vw;
     margin-bottom: 5vw;
     background-color: rgba(254, 255, 255, 0.4);
@@ -86,9 +83,9 @@ input::placeholder{
     border: none;
 }
 .p-login{
-font-weight: bold;
-font-size: 20px;
-color: white;
+    font-weight: bold;
+    font-size: 20px;
+    color: white;
 }
 .button-google-login{
     border-radius: 30px;
@@ -106,8 +103,83 @@ color: white;
     font-size: 16px;
 }
 .cadastrese-login{
-text-decoration: none;
+    text-decoration: none;
+    font-size: 18px;
+    color: white;
+
+}
+
+@media screen and (min-width: 1024px){
+
+.container-login{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+} 
+
+.logo{
+    width: 25vw;
+    margin-bottom: 3vw;
+}
+.frase-login{
+    border: none;
+    width: 30vw;
+    height: 88px;
+    font-size: 20px;
+    background-color: rgba(254, 255, 255, 0.1);
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+.input-login{
+    width: 24vw;
+    height: 4vw;
+    margin-bottom: 2vw;
+    font-size: 16px;
+}
+#button-login{
+    width: 24vw;
+    height: 4vw;;
+    font-size: 18px;
+}
+.button-google-login{
+    width: 24vw;
+    height: 4vw;
+}
+.forms-login{
+    line-height: 6vw;
+}
+
+.input-icon {
+    top: 40%; /* Centraliza verticalmente */
+    width: 33px;
+}
+.input-icon-hide{
+    left: 19vw; /* Ajuste a posição do ícone conforme necessário */
+    top: 40%; /* Centraliza verticalmente */
+    width: 33px;
+}
+.figure-login{
+    margin-bottom: 5vw;
+}
+
+.continue-login{
+    font-size: 16px;
+}
+.cadastrese-login{
 font-size: 18px;
-color: white;
+}
+
+.icon-google{
+    width: 35px;
+}
+
+.p-login{ 
+    font-size: 20px;
+}
+
+.input-login::placeholder{   
+    font-size: 16px;  
+}
 
 }
