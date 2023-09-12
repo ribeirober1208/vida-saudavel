@@ -1,4 +1,4 @@
-import { loginUser } from "../../firebase/firebase.js";
+import { loginUser, loginWithGoogle } from "../../firebase/firebase.js";
 
 export default () => {
   const container = document.createElement("div");
@@ -41,10 +41,38 @@ export default () => {
         const user = userCredential.user;
       })
       .catch((error) => {
-        console.log(error);
         const errorCode = error.code;
-        const errorMessage = error.message;
+
+        alert(getErrorMessage(errorCode));
       });
+
+    function getErrorMessage(error) {
+      const errorMessage = error.message;
+      if (error == "auth/user-not-found") {
+        return "Usuário não encontrado";
+      }
+      return errorMessage;
+    }
   });
+
+  const btnGoogle = document.querySelector(".button-google-login")
+
+  btnGoogle.addEventListener("click", (event) => {
+    event.preventDefault()
+    loginWithGoogle()
+      .then(() => {
+        window.location.href = "#home";
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        console.log(errorCode);
+      });
+
+  });
+
   return container;
 };
+
+
+//senha incorreta
+//nome ao invés de email
