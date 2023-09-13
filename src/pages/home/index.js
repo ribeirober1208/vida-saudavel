@@ -1,6 +1,5 @@
 export default () => {
   const container = document.createElement("div");
-  const app = document.getElementById('app');
   container.classList.add("container-timeLine");
   const template = `
     <header>
@@ -12,7 +11,7 @@ export default () => {
     <main class="container-timeline">
     <section class="form-post">
       <textarea id="new-post" rows="4" cols="50" placeholder="Compartilhe algo..."></textarea>
-      <button onclick="addPost()" class="button-post"> Postar </button>
+      <button id="post-button" class="button-post"> Postar </button>
     </section>
     
     <section class="feed-post">
@@ -28,6 +27,7 @@ export default () => {
    </footer> 
      `;
   container.innerHTML = template;
-
+  //const buttonPost = container.querySelector("#post-button")
+  //buttonPost.addEventListener("click",addPost) 
   return container;
 };

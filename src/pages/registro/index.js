@@ -2,14 +2,15 @@ export default () => {
   const container = document.createElement("div");
   container.classList.add("container-registro");
   const template = `
-
-    <header> </header>
-    <main class="main-registro"> 
-    <figure class="logo-registro">
+  
+    <section class="main-registro">
+     <div class="container-forms">
+     <figure class="figure-login">
      <img src="./img/Logo.png" alt="logo" class="logo">
      <h3 class="frase-registro">Compartilhe o melhor da alimentação saudável na sua nova rede social</h3>
-    </figure>
-      <div class="container-forms">
+    </figure>  
+      <header</header>
+    
         <form>
           <div class="form-field">
           <li><input type="text" id="preencher" placeholder="Nome" />
@@ -48,8 +49,8 @@ export default () => {
           <li id="texto-registro">Já tem uma conta? <a href="./#login">Faça seu login.</a></li>
        </form>
      </div>
-    </main>
-    <footer></footer>
+    </section>
+  <footer></footer>
     <script type="module" src="main.js"></script>
     <script src="./src/pages/registro/registro.js"></script>
    
