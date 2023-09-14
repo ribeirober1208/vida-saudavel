@@ -47,12 +47,19 @@ export default () => {
   btnLogin.addEventListener("click", (event) => {
     event.preventDefault(); // Impede o envio do formulário padrão
 
-  if(!emailInput.value){
-    messageError[0].style.display="block";
-  }
-  if(!passwordInput.value){
-    messageError[2].style.display="block";
-  }
+    // Oculte todas as mensagens de erro inicialmente
+    messageError.forEach((error) => {
+      error.style.display = "none";
+    });
+
+    if (!emailInput.value) {
+      messageError[0].style.display = "block";
+    } else if (!/^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i.test(emailInput.value)) {
+      messageError[1].style.display = "block";
+    }
+    if (!passwordInput.value) {
+      messageError[2].style.display = "block";
+    }
 
     loginUser(emailInput.value, passwordInput.value)
       .then((userCredential) => {
@@ -90,6 +97,3 @@ export default () => {
 
   return container;
 };
-
-//senha incorreta
-//nome ao invés de email
