@@ -14,11 +14,14 @@ export default () => {
   <img src="./img/MaleUser.png" alt="maleUser" class="input-icon">
   <input type="email" name="email" placeholder="E-mail" class="input-login" id="input-email">
   </div>
+  <div class="error">Email é obrigatório</div>
+  <div class="error">Email é inválido</div>
   <div class="input-container">
   <img src="./img/lock.png" alt="lock" class="input-icon">
   <input type="password" name="senha" placeholder="Senha" class="input-login" id="input-password">
   <img src="./img/Hide.png" alt="hide" class="input-icon-hide">
   </div>
+  <div class="error">Senha é obrigatória</div>
     <button id="button-login">Entrar</button>
     <p class="p-login">ou</p>
     <button class="button-google-login"><img src="./img/icon-google.png" alt="icon-google" class="icon-google"><a href="" class="continue-login">Continue com o Google</a></button>
@@ -32,6 +35,7 @@ export default () => {
   const passwordInput = document.querySelector("#input-password");
   const togglePasswordIcon = document.querySelector(".input-icon-hide");
   const btnLogin = document.querySelector("#button-login");
+  const messageError = document.querySelectorAll(".error");
 
   togglePasswordIcon.addEventListener('click', () => {
     const type = passwordInput.type === "password" ? "text" : "password";
@@ -43,6 +47,13 @@ export default () => {
   btnLogin.addEventListener("click", (event) => {
     event.preventDefault(); // Impede o envio do formulário padrão
 
+  if(!emailInput.value){
+    messageError[0].style.display="block";
+  }
+  if(!passwordInput.value){
+    messageError[2].style.display="block";
+  }
+
     loginUser(emailInput.value, passwordInput.value)
       .then((userCredential) => {
         window.location.href = "#home";
@@ -50,8 +61,6 @@ export default () => {
       })
       .catch((error) => {
         const errorCode = error.code;
-
-        alert(getErrorMessage(errorCode));
       });
 
     function getErrorMessage(error) {
@@ -78,9 +87,9 @@ export default () => {
 
   });
 
+
   return container;
 };
-
 
 //senha incorreta
 //nome ao invés de email
