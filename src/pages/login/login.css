@@ -14,6 +14,7 @@
     justify-content: center;
     align-items: center;
     background-repeat: repeat;   
+    min-height: 100vh;
 }
 .logo{
     width: 80vw;
