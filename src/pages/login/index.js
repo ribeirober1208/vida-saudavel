@@ -7,11 +7,11 @@ export default () => {
   const template = `
   <figure class="figure-login">
     <img src="./img/Logo.png" alt="logo" class="logo">
-    <h3 class="frase-login">Compartilhe o melhor da alimentação saudável na sua nova rede social</h3>
+    <h3 class="frase-login">Compartilhe o melhor da alimentação <br> saudável na sua nova rede social</h3>
   </figure>
   <section class="forms-login">
   <div class="input-container">
-  <img src="./img/MaleUser.png" alt="maleUser" class="input-icon">
+  <img src="./img/MaleUser.png" alt="maleUser" class="login-icon">
   <input type="email" name="email" placeholder="E-mail" class="input-login" id="input-email">
   </div>
   <div class="input-container">
