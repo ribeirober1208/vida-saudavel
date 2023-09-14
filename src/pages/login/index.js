@@ -13,15 +13,15 @@ export default () => {
   <div class="input-container">
   <img src="./img/MaleUser.png" alt="maleUser" class="login-icon">
   <input type="email" name="email" placeholder="E-mail" class="input-login" id="input-email">
-  </div>
   <div class="error">Email é obrigatório</div>
   <div class="error">Email é inválido</div>
+  </div>
   <div class="input-container">
   <img src="./img/lock.png" alt="lock" class="input-icon">
   <input type="password" name="senha" placeholder="Senha" class="input-login" id="input-password">
   <img src="./img/Hide.png" alt="hide" class="input-icon-hide">
-  </div>
   <div class="error">Senha é obrigatória</div>
+  </div>
     <button id="button-login">Entrar</button>
     <p class="p-login">ou</p>
     <button class="button-google-login"><img src="./img/icon-google.png" alt="icon-google" class="icon-google"><a href="" class="continue-login">Continue com o Google</a></button>
