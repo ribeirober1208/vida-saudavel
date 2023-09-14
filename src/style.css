@@ -1,7 +1,7 @@
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+   
 }
 
 html, body, main {
@@ -38,3 +38,6 @@ footer {
     width: 8vw;
 }
 
+/* main {
+    background-color: white;
+}*/
