@@ -52,13 +52,19 @@ export default () => {
       error.style.display = "none";
     });
 
+    emailInput.classList.remove("error-input"); 
+    passwordInput.classList.remove("error-input"); 
+
     if (!emailInput.value) {
       messageError[0].style.display = "block";
+      emailInput.classList.add("error-input"); 
     } else if (!/^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i.test(emailInput.value)) {
       messageError[1].style.display = "block";
+      emailInput.classList.add("error-input");
     }
     if (!passwordInput.value) {
       messageError[2].style.display = "block";
+      passwordInput.classList.add("error-input");
     }
 
     loginUser(emailInput.value, passwordInput.value)
