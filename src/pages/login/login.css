@@ -59,35 +59,26 @@ input::placeholder {
   font-weight: bold;
 
 }
-
-.login-icon {
-  position: absolute;
-  left: 8px;
-  /* Ajuste a posição do ícone conforme necessário */
-  top: 33%;
-  /* Centraliza verticalmente */
-  transform: translateY(-50%);
-  width: 30px;
+.login-icon{
+    position: absolute;
+    left: 8px; /* Ajuste a posição do ícone conforme necessário */
+    top: 33%; /* Centraliza verticalmente */
+    transform: translateY(-50%);
+    width: 30px;
 }
-
 .input-icon {
-  position: absolute;
-  left: 8px;
-  /* Ajuste a posição do ícone conforme necessário */
-  top: 33%;
-  /* Centraliza verticalmente */
-  transform: translateY(-50%);
-  width: 26px;
-}
-
-.input-icon-hide {
-  position: absolute;
-  left: 58vw;
-  /* Ajuste a posição do ícone conforme necessário */
-  top: 33%;
-  /* Centraliza verticalmente */
-  transform: translateY(-50%);
-  width: 26px;
+    position: absolute;
+    left: 8px; /* Ajuste a posição do ícone conforme necessário */
+    top: 33%; /* Centraliza verticalmente */
+    transform: translateY(-50%);
+    width: 26px;
+  }
+.input-icon-hide{
+    position: absolute;
+    left:58vw; /* Ajuste a posição do ícone conforme necessário */
+    top: 33%; /* Centraliza verticalmente */
+    transform: translateY(-50%);
+    width: 26px;
 }
 
 .input-container {
@@ -179,31 +170,25 @@ input::placeholder {
   .button-google-login {
     width: 22vw;
     height: 3.5vw;
-  }
-
-  .login-icon {
-    left: 8px;
-    /* Ajuste a posição do ícone conforme necessário */
-    top: 34%;
-    /* Centraliza verticalmente */
+}
+.forms-login{
+    /* line-height: 4vw; */
+}
+.login-icon { 
+    left: 8px; /* Ajuste a posição do ícone conforme necessário */
+    top: 34%; /* Centraliza verticalmente */
     transform: translateY(-50%);
     width: 29px;
   }
-
-  .input-icon {
-    top: 34%;
+.input-icon {
+    top: 34%; 
     width: 27px;
-  }
-
-  .input-icon-hide {
-    left: 19vw;
-    /* Ajuste a posição do ícone conforme necessário */
-    top: 34%;
-    /* Centraliza verticalmente */
-    width: 25px
-  }
-
-  .figure-login {
+}
+.input-icon-hide{
+    left: 19vw; /* Ajuste a posição do ícone conforme necessário */
+    top: 34%; /* Centraliza verticalmente */
+    width: 25px}
+.figure-login{
     margin-bottom: 5vw;
   }
 
