@@ -52,12 +52,12 @@ export default () => {
       error.style.display = "none";
     });
 
-    emailInput.classList.remove("error-input"); 
-    passwordInput.classList.remove("error-input"); 
+    emailInput.classList.remove("error-input");
+    passwordInput.classList.remove("error-input");
 
     if (!emailInput.value) {
       messageError[0].style.display = "block";
-      emailInput.classList.add("error-input"); 
+      emailInput.classList.add("error-input");
     } else if (!/^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i.test(emailInput.value)) {
       messageError[1].style.display = "block";
       emailInput.classList.add("error-input");
