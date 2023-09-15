@@ -53,26 +53,25 @@ input::placeholder{
     font-weight: bold;
     
 }
-.login-icon{
-    position: absolute;
-    left: 8px; /* Ajuste a posição do ícone conforme necessário */
-    top: 33%; /* Centraliza verticalmente */
-    transform: translateY(-50%);
-    width: 30px;
+#input-email{
+    background-image: url("/img/MaleUser.png");
+    background-position: 10px;
+    background-repeat: no-repeat;
+    background-size: 30px;
 }
-.input-icon {
-    position: absolute;
-    left: 8px; /* Ajuste a posição do ícone conforme necessário */
-    top: 33%; /* Centraliza verticalmente */
-    transform: translateY(-50%);
-    width: 26px;
-  }
+#input-password{
+    background-image: url("/img/Lock.png");
+    background-position: 10px;
+    background-repeat: no-repeat;
+    background-size: 28px;
+}
+
 .input-icon-hide{
     position: absolute;
-    left:58vw; /* Ajuste a posição do ícone conforme necessário */
-    top: 33%; /* Centraliza verticalmente */
+    left:58vw; 
+    top: 28px;
     transform: translateY(-50%);
-    width: 26px;
+    width: 28px;
 }
 .input-container{
     position: relative;
@@ -155,20 +154,13 @@ input::placeholder{
     height: 3.5vw;
 }
 
-.login-icon { 
-    left: 8px; /* Ajuste a posição do ícone conforme necessário */
-    top: 34%; /* Centraliza verticalmente */
-    transform: translateY(-50%);
-    width: 29px;
-  }
-.input-icon {
-    top: 34%; 
+
+.input-icon-hide{
+    position: absolute;
+    left:19vw; 
+    top: 26px;
     width: 27px;
 }
-.input-icon-hide{
-    left: 19vw; /* Ajuste a posição do ícone conforme necessário */
-    top: 34%; /* Centraliza verticalmente */
-    width: 25px}
 .figure-login{
     margin-bottom: 5vw;
 }
