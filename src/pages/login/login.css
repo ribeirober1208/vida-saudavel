@@ -154,9 +154,7 @@ input::placeholder{
     width: 22vw;
     height: 3.5vw;
 }
-.forms-login{
-    /* line-height: 4vw; */
-}
+
 .login-icon { 
     left: 8px; /* Ajuste a posição do ícone conforme necessário */
     top: 34%; /* Centraliza verticalmente */
