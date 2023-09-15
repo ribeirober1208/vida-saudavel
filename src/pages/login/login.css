@@ -1,49 +1,43 @@
-.figure-login {
+.figure-login{
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-
+  
 }
-
-.container-login {
+.container-login{
   background-attachment: fixed;
   width: 100%;
-  background-color: #7ED957;
+  background-color:#7ED957 ;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-repeat: repeat;
+  background-repeat: repeat;   
   min-height: 100vh;
 }
-
-.logo {
+.logo{
   width: 80vw;
 
 }
-
-.icon-google {
+.icon-google{
   width: 28px;
 }
-
-.frase-login {
-  color: white;
-  width: 90vw;
-  height: 16vw;
-  text-align: center;
-  padding-top: 10px;
-  margin-bottom: 15px;
-  margin-top: 5px;
+.frase-login{
+ color: white;
+ width: 90vw;
+ height: 16vw;
+ text-align: center;
+ padding-top: 10px;
+ margin-bottom: 15px;
+ margin-top: 5px;
 }
-
-.forms-login {
+.forms-login{
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-
-.input-login {
+.input-login{
   border-radius: 30px;
   width: 70vw;
   height: 14vw;
@@ -52,41 +46,38 @@
   outline: none;
   padding-left: 45px;
 }
-
-input::placeholder {
-  color: white;
+  
+input::placeholder{
+  color:white;
   font-size: 15px;
   font-weight: bold;
+  
+}
+#input-email{
+  background-image: url("/img/MaleUser.png");
+  background-position: 10px;
+  background-repeat: no-repeat;
+  background-size: 30px;
+}
+#input-password{
+  background-image: url("/img/Lock.png");
+  background-position: 10px;
+  background-repeat: no-repeat;
+  background-size: 28px;
+}
 
-}
-.login-icon{
-    position: absolute;
-    left: 8px; /* Ajuste a posição do ícone conforme necessário */
-    top: 33%; /* Centraliza verticalmente */
-    transform: translateY(-50%);
-    width: 30px;
-}
-.input-icon {
-    position: absolute;
-    left: 8px; /* Ajuste a posição do ícone conforme necessário */
-    top: 33%; /* Centraliza verticalmente */
-    transform: translateY(-50%);
-    width: 26px;
-  }
 .input-icon-hide{
-    position: absolute;
-    left:58vw; /* Ajuste a posição do ícone conforme necessário */
-    top: 33%; /* Centraliza verticalmente */
-    transform: translateY(-50%);
-    width: 26px;
+  position: absolute;
+  left:58vw; 
+  top: 28px;
+  transform: translateY(-50%);
+  width: 28px;
 }
-
-.input-container {
+.input-container{
   position: relative;
   display: inline-block;
 }
-
-#button-login {
+#button-login{
   border-radius: 30px;
   width: 70vw;
   height: 14vw;
@@ -96,8 +87,7 @@ input::placeholder {
   font-weight: bold;
   border: none;
 }
-
-.p-login {
+.p-login{
   font-weight: bold;
   font-size: 20px;
   color: white;
@@ -105,8 +95,7 @@ input::placeholder {
   margin-bottom: 10px;
 
 }
-
-.button-google-login {
+.button-google-login{
   border-radius: 30px;
   width: 70vw;
   height: 14vw;
@@ -116,103 +105,82 @@ input::placeholder {
   background-color: white;
   border: none;
 }
-
-.continue-login {
+.continue-login{
   text-decoration: none;
   color: black;
   font-size: 16px;
 }
-
-.cadastrese-login {
+.cadastrese-login{
   text-decoration: none;
   font-size: 16px;
   color: white;
 }
 
-@media screen and (min-width: 1024px) {
-  .container-login {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    align-items: center;
-    height: 100%;
-  }
-
-  .logo {
-    width: 25vw;
-    margin-bottom: 3vw;
-  }
-
-  .frase-login {
-    border: none;
-    width: 30vw;
-    height: 80px;
-    font-size: 20px;
-    background-color: rgba(254, 255, 255, 0.1);
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  }
-
-  .input-login {
-    width: 22vw;
-    height: 3.5vw;
-    font-size: 16px;
-    margin: 0;
-
-  }
-
-  #button-login {
-    width: 22vw;
-    height: 3.5vw;
-    font-size: 18px;
-  }
-
-  .button-google-login {
-    width: 22vw;
-    height: 3.5vw;
+@media screen and (min-width: 1024px){
+.container-login{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 100%;
+} 
+.logo{
+  width: 25vw;
+  margin-bottom: 3vw;
 }
-.forms-login{
-    /* line-height: 4vw; */
+.frase-login{ 
+  border: none;
+  width: 30vw;
+  height: 80px;
+  font-size: 20px;
+  background-color: rgba(254, 255, 255, 0.1);
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
-.login-icon { 
-    left: 8px; /* Ajuste a posição do ícone conforme necessário */
-    top: 34%; /* Centraliza verticalmente */
-    transform: translateY(-50%);
-    width: 29px;
-  }
-.input-icon {
-    top: 34%; 
-    width: 27px;
+.input-login{
+  width: 22vw;
+  height: 3.5vw;
+  font-size: 16px;
+  margin: 0;
+ 
 }
+#button-login{
+  width: 22vw;
+  height: 3.5vw;
+  font-size: 18px;
+}
+.button-google-login{
+  width: 22vw;
+  height: 3.5vw;
+}
+
+
 .input-icon-hide{
-    left: 19vw; /* Ajuste a posição do ícone conforme necessário */
-    top: 34%; /* Centraliza verticalmente */
-    width: 25px}
+  position: absolute;
+  left:19vw; 
+  top: 24px;
+  width: 27px;
+}
 .figure-login{
-    margin-bottom: 5vw;
-  }
+  margin-bottom: 5vw;
+}
+.continue-login{
+  font-size: 16px;
+}
+.cadastrese-login{
+  padding-top: 10px;
+  font-size: 16px;
+}
+.icon-google{
+  width: 35px;
+}
+.p-login{ 
+  font-size: 18px;
 
-  .continue-login {
-    font-size: 16px;
-  }
-
-  .cadastrese-login {
-    padding-top: 10px;
-    font-size: 16px;
-  }
-
-  .icon-google {
-    width: 35px;
-  }
-
-  .p-login {
-    font-size: 18px;
-
-  }
-
-  .input-login::placeholder {
-    font-size: 16px;
-  }
+}
+.input-login::placeholder{   
+  font-size: 16px;  
+}
 
 }
 
@@ -231,8 +199,8 @@ input.error-input {
   border: 1px solid rgb(236, 59, 59);
 }
 
-.input-container {
+.input-container{
   display: flex;
   flex-direction: column;
-  margin-bottom: 30px;
+  margin-bottom: 30px;   
 }
