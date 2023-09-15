@@ -202,7 +202,15 @@ a:hover {
 }
 
 
+    #logo-registro {
+        text-align: start;
+        /* margin-top: 100px; */
+        margin-left: 300px;
+        background-color: #7ed957;
+    }
+
 @media screen and (min-width: 1024px) {
+
 
     .main-registro {
         display: flex;
