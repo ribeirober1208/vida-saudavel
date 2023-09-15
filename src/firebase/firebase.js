@@ -4,7 +4,9 @@ import {
   getAuth,
   signInWithEmailAndPassword,
   setPersistence,
-  browserLocalPersistence
+  browserLocalPersistence,
+  GoogleAuthProvider,
+  signInWithPopup,
 } from "firebase/auth";
 
 const auth = getAuth(app);
@@ -22,4 +24,13 @@ export const loginUser = async (email, password) => {
   }
 };
 
+export const loginWithGoogle = async() => {
+  try {
+    return await signInWithPopup(auth, new GoogleAuthProvider());
+  }catch(error){
+    console.error("Erro no login:", error.code, error.message);
+    throw error;
+  }
+
+}
 // "abf.ferreirac@gmail.com", "123456789"
