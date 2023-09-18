@@ -171,7 +171,7 @@ input::placeholder{
 }
 .login-icon { 
     left: 8px; /* Ajuste a posição do ícone conforme necessário */
-    top: 28px; /* Centraliza verticalmente */
+    top: 25px; /* Centraliza verticalmente */
     transform: translateY(-50%);
     width: 29px;
   }
@@ -181,7 +181,7 @@ input::placeholder{
 }
 .input-icon-hide{
     left: 19vw; /* Ajuste a posição do ícone conforme necessário */
-    top: 28px; /* Centraliza verticalmente */
+    top: 25px; /* Centraliza verticalmente */
     width: 25px}
 
   .figure-login {
