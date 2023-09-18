@@ -1,8 +1,30 @@
 import { addDoc, getDocs, query, where } from "firebase/firestore";
 import { createUser, dbUsers } from "../../firebase/firebaseConfig";
 
+//Aqui é onde eu pego os elementos do html
+export const form = {
+  confirmPassword: () => document.getElementById("confirmPassword"),
+  confirmPasswordDoesntMatchError: () =>
+    document.getElementById("password--doesnt-match-error"),
+  name: () => document.getElementById("name"),
+  email: () => document.getElementById("email"),
+  emailInvalidError: () => document.getElementById("email-invalid-error"),
+  emailExistsError: () => document.getElementById("email-exists-error"),
+  emailRequiredError: () => document.getElementById("email-required-error"),
+  password: () => document.getElementById("password"),
+  passwordRequiredError: () =>
+    document.getElementById("password-required-error"),
+  passwordMinLengthError: () =>
+    document.getElementById("password-min-length-error"),
+  registerButton: () => document.getElementById("register-button"),
+  togglePassword: () => document.getElementsByClassName("toggle-password"),
+};
+
 // Essa função é responsável por validar o email
-async function validateEmail(email) {
+export async function validateEmail(email) {
+  form.email().classList.remove("error-input");
+  form.emailExistsError().style.display = "none";
+
   if (!email) {
     form.email().classList.add("error-input");
     return false;
@@ -38,7 +60,7 @@ async function validateEmail(email) {
 }
 
 // Essa função é responsável por validar o nome
-async function onChangeName() {
+export async function onChangeName() {
   const name = form.name().value;
   document.getElementById("name-required-error").style.display = name
     ? "none"
@@ -55,7 +77,7 @@ async function onChangeName() {
 }
 
 // Essa função é responsável por validar o email
-async function onChangeEmail() {
+export async function onChangeEmail() {
   const email = form.email().value;
   form.emailRequiredError().style.display = email ? "none" : "block";
 
@@ -65,7 +87,7 @@ async function onChangeEmail() {
 }
 
 // Essa função é responsável por validar a senha
-async function onChangePassword() {
+export async function onChangePassword() {
   const password = form.password().value;
   form.passwordRequiredError().style.display = password ? "none" : "block";
 
@@ -83,12 +105,13 @@ async function onChangePassword() {
 }
 
 // Essa função é responsável por validar a confirmação de senha
-async function onChangeConfirmPassword() {
+export async function onChangeConfirmPassword() {
   validatePasswordMatch();
   await toggleRegisterButtonDisable();
 }
 
-function validatePasswordMatch() {
+// Essa função é responsável por validar a confirmação de senha
+export function validatePasswordMatch() {
   const password = form.password().value;
   const confirmPassword = form.confirmPassword().value;
 
@@ -102,12 +125,12 @@ function validatePasswordMatch() {
   }
 }
 // Essa função é responsável por validar o formulário
-async function toggleRegisterButtonDisable() {
+export async function toggleRegisterButtonDisable() {
   const isValid = !(await isFormValid());
   form.registerButton().disabled = isValid;
 }
 // Essa função é responsável por validar o formulário
-async function isFormValid() {
+export async function isFormValid() {
   const email = form.email().value;
   if (!email || !(await validateEmail(email))) {
     return false;
@@ -126,26 +149,8 @@ async function isFormValid() {
   return true;
 }
 
-//Aqui é onde eu pego os elementos do html
-const form = {
-  confirmPassword: () => document.getElementById("confirmPassword"),
-  confirmPasswordDoesntMatchError: () =>
-    document.getElementById("password--doesnt-match-error"),
-  name: () => document.getElementById("name"),
-  email: () => document.getElementById("email"),
-  emailInvalidError: () => document.getElementById("email-invalid-error"),
-  emailExistsError: () => document.getElementById("email-exists-error"),
-  emailRequiredError: () => document.getElementById("email-required-error"),
-  password: () => document.getElementById("password"),
-  passwordRequiredError: () =>
-    document.getElementById("password-required-error"),
-  passwordMinLengthError: () =>
-    document.getElementById("password-min-length-error"),
-  registerButton: () => document.getElementById("register-button"),
-  togglePassword: () => document.getElementsByClassName("toggle-password"),
-};
 // Essa função é responsável por mostrar ou ocultar a senha
-function toggleTypePassword() {
+export function toggleTypePassword() {
   const inputTarget = this.getAttribute("data-target");
   const inputElement = form[inputTarget]();
 
@@ -157,7 +162,7 @@ function toggleTypePassword() {
   this.setAttribute("src", `./img/${icon}.png`);
 }
 // Essa função é responsável por criar a conta no firebase
-async function createAccountFirebase() {
+export async function createAccountFirebase() {
   const email = form.email().value;
   const name = form.name().value;
   const password = form.password().value;
@@ -168,7 +173,13 @@ async function createAccountFirebase() {
         name,
         email,
       });
-      localStorage.setItem("user", JSON.stringify(userCredential.user));
+      localStorage.setItem(
+        "user",
+        JSON.stringify({
+          email: userCredential.user.email,
+          uid: userCredential.user.uid,
+        })
+      );
       return (window.location.href = "/#home");
     })
     .catch((error) => {
@@ -177,7 +188,7 @@ async function createAccountFirebase() {
     });
 }
 // Essa função é responsável por criar a conta
-async function handleCreateAccount() {
+export async function handleCreateAccount() {
   await onChangeConfirmPassword();
   await onChangePassword();
   await onChangeEmail();

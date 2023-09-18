@@ -1,4 +1,6 @@
+import { addDoc } from "firebase/firestore";
 import { loginUser, loginWithGoogle } from "../../firebase/firebase.js";
+import { dbUsers } from "../../firebase/firebaseConfig.js";
 
 export default () => {
   const container = document.createElement("div");
@@ -69,22 +71,17 @@ export default () => {
       passwordInput.classList.add("error-input");
     }
 
-    loginUser(emailInput.value, passwordInput.value)
-      .then((userCredential) => {
-        window.location.href = "#home";
-        const user = userCredential.user;
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-      });
-
-    function getErrorMessage(error) {
-      const errorMessage = error.message;
-      if (error == "auth/user-not-found") {
-        return "Usuário não encontrado";
-      }
-      return errorMessage;
-    }
+    loginUser(emailInput.value, passwordInput.value).then((userCredential) => {
+      window.location.href = "#home";
+      const user = userCredential.user;
+      localStorage.setItem(
+        "user",
+        JSON.stringify({
+          email: user.email,
+          uid: user.uid,
+        })
+      );
+    });
   });
 
   const btnGoogle = document.querySelector(".button-google-login");
@@ -92,12 +89,28 @@ export default () => {
   btnGoogle.addEventListener("click", (event) => {
     event.preventDefault();
     loginWithGoogle()
-      .then(() => {
+      .then(async (userCredential) => {
+        const name = userCredential.user.displayName;
+        const email = userCredential.user.email;
+        await addDoc(
+          dbUsers,
+          {
+            name,
+            email,
+          },
+          { merge: true }
+        );
+        localStorage.setItem(
+          "user",
+          JSON.stringify({
+            email: userCredential.user.email,
+            uid: userCredential.user.uid,
+          })
+        );
         window.location.href = "#home";
       })
       .catch((error) => {
         const errorCode = error.code;
-        console.log(errorCode);
       });
   });
 

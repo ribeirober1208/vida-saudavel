@@ -1,5 +1,3 @@
-import { async } from 'regenerator-runtime';
-import { app } from './firebaseConfig.js';
 import {
   getAuth,
   signInWithEmailAndPassword,
@@ -9,28 +7,29 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 
-const auth = getAuth(app);
+import { app } from "./firebaseConfig.js";
 
+const auth = getAuth(app);
 
 export const loginUser = async (email, password) => {
   try {
     await setPersistence(auth, browserLocalPersistence);
-    const userCredential = await signInWithEmailAndPassword(auth, email, password);
-    console.log("Login bem-sucedido!", userCredential.user);
+    const userCredential = await signInWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
     return userCredential.user;
   } catch (error) {
-    console.error("Erro no login:", error.code, error.message);
     throw error;
   }
 };
 
-export const loginWithGoogle = async() => {
+export const loginWithGoogle = async () => {
   try {
     return await signInWithPopup(auth, new GoogleAuthProvider());
-  }catch(error){
-    console.error("Erro no login:", error.code, error.message);
+  } catch (error) {
     throw error;
   }
-
-}
+};
 // "abf.ferreirac@gmail.com", "123456789"
