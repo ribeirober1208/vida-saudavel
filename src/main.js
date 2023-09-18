@@ -58,6 +58,13 @@ export const handleGetUserName = (isReturnValue = false) => {
 
     userNameElement.innerHTML = userName;
   }
+
+  if (isReturnValue) {
+    return {
+      email: "",
+      userName: "",
+    };
+  }
 };
 
 //esta função é responsável por verificar se o usuário está logado
