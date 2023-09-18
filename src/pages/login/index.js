@@ -11,13 +11,11 @@ export default () => {
   </figure>
   <section class="forms-login">
   <div class="input-container">
-  <img src="./img/MaleUser.png" alt="maleUser" class="login-icon">
   <input type="email" name="email" placeholder="E-mail" class="input-login" id="input-email">
   <div class="error">Email é obrigatório</div>
   <div class="error">Email é inválido</div>
   </div>
   <div class="input-container">
-  <img src="./img/lock.png" alt="lock" class="input-icon">
   <input type="password" name="senha" placeholder="Senha" class="input-login" id="input-password">
   <img src="./img/Hide.png" alt="hide" class="input-icon-hide">
   <div class="error">Senha é obrigatória</div>
