@@ -6,7 +6,3 @@
 //     expect(typeof myFunction).toBe('function');
 //   });
 // });
-
-
-
-

@@ -153,7 +153,7 @@ export async function handleBodyClick(event) {
     delete: async () => {
       const docSnap = await getDoc(doc(db, "posts", id));
       if (docSnap.data().userEmail === userEmail) {
-        await deletePostFromDb(id);
+        // await deletePostFromDb(id);
       } else {
         alert("Você só pode deletar seus próprios posts");
       }
@@ -163,7 +163,7 @@ export async function handleBodyClick(event) {
       if (docSnap.data().userEmail === userEmail) {
         const newMessage = prompt("Digite uma nova mensagem:");
         if (newMessage) {
-          await editPostInDb(id, newMessage);
+          // await editPostInDb(id, newMessage);
         }
       } else {
         alert("Você só pode editar seus próprios posts");

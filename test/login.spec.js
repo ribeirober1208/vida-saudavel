@@ -1,26 +1,26 @@
-
 import {
     getMultiFactorResolver,
     signInWithEmailAndPassword,
     signInWithPopup,
-   } from "firebase/auth";
+} from "firebase/auth";
   
-   import {
-    login
-   } from "../src/pages/login/index.js";
+import {
+  login
+} from "../src/pages/login/index.js";
   
-   jest.mock("firebase/auth");
+jest.mock("firebase/auth");
 
-   login.loginUser = jest.fn();
-   login.loginWithGoogle = jest.fn();
-   
-   describe("login", () => {
-    it("redirecionamento para home caso login e senha cadastrados", () => {
-        const screenLogin = login()
-        screenLogin.getElementById("input-email").value = "any@gmail.com";
-        screenLogin.getElementById("input-password").value = "123456";
-    });
-   })
+jest.mock("../src/firebase/firebase.js", () => {
+  loginUser = jest.fn();
+  loginWithGoogle = jest.fn();
+})
+describe("login", () => {
+  it("redirecionamento para home caso login e senha cadastrados", () => {
+    const screenLogin = login()
+    screenLogin.getElementById("input-email").value = "any@gmail.com";
+    screenLogin.getElementById("input-password").value = "123456";
+  });
+})
 
 
 //    describe("loginWithGoogle", () => {
