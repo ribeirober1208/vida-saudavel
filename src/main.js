@@ -143,3 +143,40 @@ window.addEventListener("load", () => {
 window.addEventListener("hashchange", () => {
   init();
 });
+
+//código spa anterior
+//const main = document.querySelector("#root");
+//const init = () => {
+//window.addEventListener("hashchange", () => {
+//init();
+//mudança de rota hashchange
+//main.innerHTML = "";
+// switch (window.location.hash) {
+//case "#home":
+// main.appendChild(home());
+// bindHomeEvents();
+// break;
+// case "#login":
+// main.appendChild(login());
+//  break;
+// case "#favorite":
+// main.appendChild(favorite());
+// break;
+// case "#registro":
+//main.appendChild(registro());
+
+// bindRegisterEvents();
+//  break;
+
+//default:
+//   main.appendChild(home());
+// }
+
+// handleUserLoggedIn();
+//});
+//};
+
+//window.addEventListener("load", () => {
+//main.appendChild(login());
+// init();
+//});
