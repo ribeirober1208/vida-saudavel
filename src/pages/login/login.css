@@ -56,21 +56,21 @@ input::placeholder{
 .login-icon{
     position: absolute;
     left: 8px; /* Ajuste a posição do ícone conforme necessário */
-    top: 33%; /* Centraliza verticalmente */
+    top: 28px; /* Centraliza verticalmente */
     transform: translateY(-50%);
     width: 30px;
 }
 .input-icon {
     position: absolute;
     left: 8px; /* Ajuste a posição do ícone conforme necessário */
-    top: 33%; /* Centraliza verticalmente */
+    top: 28px; /* Centraliza verticalmente */
     transform: translateY(-50%);
     width: 26px;
   }
 .input-icon-hide{
     position: absolute;
     left:58vw; /* Ajuste a posição do ícone conforme necessário */
-    top: 33%; /* Centraliza verticalmente */
+    top: 28px; /* Centraliza verticalmente */
     transform: translateY(-50%);
     width: 26px;
 }
@@ -159,17 +159,17 @@ input::placeholder{
 }
 .login-icon { 
     left: 8px; /* Ajuste a posição do ícone conforme necessário */
-    top: 34%; /* Centraliza verticalmente */
+    top: 28px; /* Centraliza verticalmente */
     transform: translateY(-50%);
     width: 29px;
   }
 .input-icon {
-    top: 34%; 
+    top: 28px; 
     width: 27px;
 }
 .input-icon-hide{
     left: 19vw; /* Ajuste a posição do ícone conforme necessário */
-    top: 34%; /* Centraliza verticalmente */
+    top: 28px; /* Centraliza verticalmente */
     width: 25px}
 .figure-login{
     margin-bottom: 5vw;
