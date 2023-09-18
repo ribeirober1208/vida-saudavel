@@ -9,6 +9,32 @@ import registro from "./pages/registro/index.js";
 import { bindEvents as bindRegisterEvents } from "./pages/registro/registro.js";
 import { auth, dbUsers } from "./firebase/firebaseConfig.js";
 
+const routes = [
+  {
+    path: "#home",
+    component: home,
+    bindEvents: bindHomeEvents,
+    isPublic: false,
+  },
+  {
+    path: "#login",
+    component: login,
+    bindEvents: () => {},
+    isPublic: true,
+  },
+  {
+    path: "#favorite",
+    component: favorite,
+    bindEvents: () => {},
+    isPublic: false,
+  },
+  {
+    path: "#registro",
+    component: registro,
+    bindEvents: bindRegisterEvents,
+    isPublic: true,
+  },
+];
 //aqui começa a parte que eu fiz (iris)
 
 //Esta função é responsável por pegar o nome do usuário e colocar na tela
@@ -71,26 +97,13 @@ const init = () => {
   console.log("hashchange", window.location.hash);
   //mudança de rota hashchange
   main.innerHTML = "";
-  switch (window.location.hash) {
-    case "#home":
-      main.appendChild(home());
-      bindHomeEvents();
-      break;
-    case "#login":
-      main.appendChild(login());
-      break;
-    case "#favorite":
-      main.appendChild(favorite());
-      break;
-    case "#registro":
-      main.appendChild(registro());
 
-      bindRegisterEvents();
-      break;
-
-    default:
-      main.appendChild(home());
-  }
+  routes.forEach((route) => {
+    if (route.path === window.location.hash) {
+      main.appendChild(route.component());
+      route.bindEvents();
+    }
+  });
 
   handleUserLoggedIn();
 
@@ -106,8 +119,12 @@ const init = () => {
       );
       return (window.location.href = "/#home");
     } else {
-      // Nenhum usuário está logado
-      console.log("Nenhum usuário logado");
+      const isPublicRoute = routes.find(
+        (route) => route.path === window.location.hash && route.isPublic
+      );
+
+      if (isPublicRoute) return;
+
       return (window.location.href = "/#login");
     }
   });
