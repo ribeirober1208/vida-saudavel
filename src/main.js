@@ -9,7 +9,6 @@ import registro from "./pages/registro/index.js";
 import { bindEvents as bindRegisterEvents } from "./pages/registro/registro.js";
 import { auth, dbUsers } from "./firebase/firebaseConfig.js";
 
-
 // A const routes é um array de objetos que contém as rotas da aplicação. Cada objeto contém a rota, o componente, a função que vai ser executada quando a rota for acessada e se a rota é pública ou privada. Isso permite que o usuário só acesse as rotas privadas se estiver logado.
 const routes = [
   {
@@ -92,7 +91,6 @@ export async function logout() {
     console.error("Erro ao deslogar: ", error);
   }
 }
-)
 
 const main = document.querySelector("#root");
 const init = () => {
@@ -122,7 +120,7 @@ const init = () => {
           uid: user.uid,
         })
       );
-    
+
       //As rotas publicas são as rotas que não precisam de login para acessar. As rotas privadas são as rotas que precisam de login para acessar. Se a tela for publica, ele redireciona para as telas de login e registro. Se a tela for privada, ele redireciona para a tela de home. tela privada seria após logado, então se trata da home e favoritos.
       return (window.location.href = "/#home");
     } else {
