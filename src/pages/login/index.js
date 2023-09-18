@@ -1,4 +1,6 @@
+import { addDoc } from "firebase/firestore";
 import { loginUser, loginWithGoogle } from "../../firebase/firebase.js";
+import { dbUsers } from "../../firebase/firebaseConfig.js";
 
 export default () => {
   const container = document.createElement("div");
@@ -11,13 +13,11 @@ export default () => {
   </figure>
   <section class="forms-login">
   <div class="input-container">
-  <img src="./img/MaleUser.png" alt="maleUser" class="login-icon">
   <input type="email" name="email" placeholder="E-mail" class="input-login" id="input-email">
   <div class="error">Email é obrigatório</div>
   <div class="error">Email é inválido</div>
   </div>
   <div class="input-container">
-  <img src="./img/lock.png" alt="lock" class="input-icon">
   <input type="password" name="senha" placeholder="Senha" class="input-login" id="input-password">
   <img src="./img/Hide.png" alt="hide" class="input-icon-hide">
   <div class="error">Senha é obrigatória</div>
@@ -37,7 +37,7 @@ export default () => {
   const btnLogin = document.querySelector("#button-login");
   const messageError = document.querySelectorAll(".error");
 
-  togglePasswordIcon.addEventListener('click', () => {
+  togglePasswordIcon.addEventListener("click", () => {
     const type = passwordInput.type === "password" ? "text" : "password";
     passwordInput.type = type;
     const icon = type === "password" ? "Hide" : "Show";
@@ -52,13 +52,15 @@ export default () => {
       error.style.display = "none";
     });
 
-    emailInput.classList.remove("error-input"); 
-    passwordInput.classList.remove("error-input"); 
+    emailInput.classList.remove("error-input");
+    passwordInput.classList.remove("error-input");
 
     if (!emailInput.value) {
       messageError[0].style.display = "block";
-      emailInput.classList.add("error-input"); 
-    } else if (!/^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i.test(emailInput.value)) {
+      emailInput.classList.add("error-input");
+    } else if (
+      !/^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i.test(emailInput.value)
+    ) {
       messageError[1].style.display = "block";
       emailInput.classList.add("error-input");
     }
@@ -67,39 +69,38 @@ export default () => {
       passwordInput.classList.add("error-input");
     }
 
-    loginUser(emailInput.value, passwordInput.value)
-      .then((userCredential) => {
-        window.location.href = "#home";
-        const user = userCredential.user;
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-      });
-
-    function getErrorMessage(error) {
-      const errorMessage = error.message;
-      if (error == "auth/user-not-found") {
-        return "Usuário não encontrado";
-      }
-      return errorMessage;
-    }
+    loginUser(emailInput.value, passwordInput.value);
   });
 
-  const btnGoogle = document.querySelector(".button-google-login")
+  const btnGoogle = document.querySelector(".button-google-login");
 
   btnGoogle.addEventListener("click", (event) => {
-    event.preventDefault()
+    event.preventDefault();
     loginWithGoogle()
-      .then(() => {
+      .then(async (userCredential) => {
+        const name = userCredential.user.displayName;
+        const email = userCredential.user.email;
+        await addDoc(
+          dbUsers,
+          {
+            name,
+            email,
+          },
+          { merge: true }
+        );
+        localStorage.setItem(
+          "user",
+          JSON.stringify({
+            email: userCredential.user.email,
+            uid: userCredential.user.uid,
+          })
+        );
         window.location.href = "#home";
       })
       .catch((error) => {
         const errorCode = error.code;
-        console.log(errorCode);
       });
-
   });
-
 
   return container;
 };

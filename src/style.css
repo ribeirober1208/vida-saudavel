@@ -11,6 +11,11 @@ html, body, #root {
 
 }
 
+html, body, main {
+    height: 100%;
+    width: 100%;
+}
+
 header {
     background-color: #7ed957;
     border: 1px solid #7ed957;
