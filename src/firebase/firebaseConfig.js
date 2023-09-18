@@ -21,11 +21,7 @@ const firebaseConfig = {
 export const app = initializeApp(firebaseConfig);
 
 export const auth = getAuth(app);
-export const createUser = async (email, password) =>
-  createUserWithEmailAndPassword(auth, email, password);
-
+export const createUser = async (email, password) => createUserWithEmailAndPassword(auth, email, password);
 export const db = getFirestore(app);
 export const dbUsers = collection(db, "users");
 export const dbPosts = collection(db, "posts");
-export const dbComments = collection(db, "comments");
-export const dbLikes = collection(db, "likes");
