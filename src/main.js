@@ -20,13 +20,13 @@ const routes = [
   {
     path: "#login",
     component: login,
-    bindEvents: () => {},
+    bindEvents: () => { },
     isPublic: true,
   },
   {
     path: "#favorite",
     component: favorite,
-    bindEvents: () => {},
+    bindEvents: () => { },
     isPublic: false,
   },
   {
@@ -131,18 +131,16 @@ const init = () => {
       //As rotas publicas são as rotas que não precisam de login para acessar. As rotas privadas são as rotas que precisam de login para acessar. Se a tela for publica, ele redireciona para as telas de login e registro. Se a tela for privada, ele redireciona para a tela de home. tela privada seria após logado, então se trata da home e favoritos.
       return (window.location.href = "/#home");
     }
-      //se a rotas não for pública, ele vai redirecionar para a tela de login. Se a rota for pública, ele vai continuar na mesma rota.
-      const isPublicRoute = routes.find(
-        (route) => route.path === window.location.hash && route.isPublic
-      );
+    //se a rotas não for pública, ele vai redirecionar para a tela de login. Se a rota for pública, ele vai continuar na mesma rota.
+    const isPublicRoute = routes.find(
+      (route) => route.path === window.location.hash && route.isPublic
+    );
 
-      if (isPublicRoute) return;
+    if (isPublicRoute) return;
 
-      return (window.location.href = "/#login");
-    }
-  )
+    return (window.location.href = "/#login");
+  });
 };
-
 window.addEventListener("load", () => {
   init();
 });
@@ -150,7 +148,6 @@ window.addEventListener("load", () => {
 window.addEventListener("hashchange", () => {
   init();
 });
-
 //código spa anterior
 //const main = document.querySelector("#root");
 //const init = () => {

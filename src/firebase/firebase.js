@@ -1,5 +1,3 @@
-import { async } from "regenerator-runtime";
-import { app } from "./firebaseConfig.js";
 import {
   getAuth,
   signInWithEmailAndPassword,
