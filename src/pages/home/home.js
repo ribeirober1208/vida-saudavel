@@ -11,6 +11,7 @@ import {
 import { db, dbPosts } from "../../firebase/firebaseConfig.js";
 import { handleGetUserName, logout } from "../../main.js";
 import { auth } from "../../firebase/firebase.js";
+import { async } from "regenerator-runtime";
 
 // o let userName e userEmail são variáveis globais que vão ser usadas em várias funções deste arquivo
 let userName;
@@ -37,13 +38,10 @@ export const templatePostItem = (id, user, message, likes, email) => {
         </div>
         <div class="post-actions">
         ${email === auth.currentUser.email ?`
-
-        <button class="action" data-action="delete" data-id="${id}">
-
+        <button class="action buttonDelete" data-action="delete" data-id="${id}">
             <img src="./img/excluir.png" class="icon-delete">
         </button>
     ` : ''}
-  
             <button class="action" data-action="edit" data-id="${id}">
                 <i class="icon">editar post</i>
             </button>
@@ -159,8 +157,10 @@ export async function handleBodyClick(event) {
 
   const actions = {
     delete: async () => {
-      const docSnap = await getDoc(doc(db, "posts", id));
-        await deletePostFromDb(id);
+       await getDoc(doc(db, "posts", id));
+       modalDelete(id);
+       
+        
     },
     edit: async () => {
       const docSnap = await getDoc(doc(db, "posts", id));
@@ -208,7 +208,6 @@ export const deletePostFromDb = async (postId) => {
   try {
     const postRef = doc(db, "posts", postId);
     const docSnap = await getDoc(postRef);
-
     if (docSnap.exists()) {
       await deleteDoc(postRef); 
     }
@@ -216,5 +215,37 @@ export const deletePostFromDb = async (postId) => {
     console.error("Erro ao excluir post: ", e);
   }
 };
+
+const modalDelete = (id) => {
+  const templateDelete = `
+  <div id="fade" class="hide"></div>
+  <div id="modal" class="hide">
+  <p class='p-modal'>Tem certeza que deseja excluir?</p>
+  <div class='button-modal'>
+  <button id="modal-excluir">Excluir</button>
+  <button id="modal-cancelar">Cancelar</button>
+  </div>
+  </div>
+  `
+  
+ const modalContainer = document.createElement('section');
+ modalContainer.classList.add("modalContainer");
+ modalContainer.innerHTML = templateDelete;
+ document.body.appendChild(modalContainer);
+ const modal = modalContainer.querySelector('#modal')
+ const fade = modalContainer.querySelector('#fade')
+ const excluir = modalContainer.querySelector('#modal-excluir')
+ const cancelar = modalContainer.querySelector('#modal-cancelar')
+ cancelar.addEventListener('click', () =>{
+  modalContainer.remove();
+ });
+ excluir.addEventListener('click', async() =>{
+  await deletePostFromDb(id);
+  modalContainer.remove();
+ });
+ return{ fade, modal, excluir};
+};
+
+
 
 
