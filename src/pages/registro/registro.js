@@ -1,5 +1,5 @@
-import { addDoc, getDocs, query, where } from "firebase/firestore";
-import { createUser, dbUsers } from "../../firebase/firebaseConfig";
+import { createUser } from "../../firebase/firebaseConfig";
+import { createUserInfo, getUserByEmail } from "../../firebase/firestore";
 
 //Aqui é onde eu pego os elementos do html
 export const form = {
@@ -30,9 +30,7 @@ export async function validateEmail(email) {
     return false;
   }
 
-  const emailExistInDatabase = await getDocs(
-    query(dbUsers, where("email", "==", email))
-  );
+  const emailExistInDatabase = await getUserByEmail(email);
 
   const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const isValid = re.test(String(email).toLowerCase());
@@ -169,10 +167,7 @@ export async function createAccountFirebase() {
 
   await createUser(email, password)
     .then(async () => {
-      await addDoc(dbUsers, {
-        name,
-        email,
-      });
+      await createUserInfo(name, email);
     })
     .catch((error) => {
       const errorMessage = error.message;
