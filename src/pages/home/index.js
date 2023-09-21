@@ -13,7 +13,7 @@ export default () => {
         <textarea id="new-post" placeholder="Compartilhe algo..."></textarea>
         <button id="add-post" class="button-post"> Postar </button>
       </section>
-    
+      
       <section class="feed-post"></section>
     </main> 
    <footer>

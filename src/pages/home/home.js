@@ -10,17 +10,18 @@ import {
 } from "firebase/firestore";
 import { db, dbPosts } from "../../firebase/firebaseConfig.js";
 import { handleGetUserName, logout } from "../../main.js";
+import { auth } from "../../firebase/firebase.js";
 
 // o let userName e userEmail são variáveis globais que vão ser usadas em várias funções deste arquivo
 let userName;
 let userEmail;
 
 // esta função é responsável por criar o template de cada post. Ela recebe como parâmetro o id, o nome do usuário, a mensagem e a quantidade de curtidas.
-export const templatePostItem = (id, user, message, likes) => {
-  // esta função é responsável por adicionar a palavra curtida ou curtidas de acordo com a quantidade de curtidas
+export const templatePostItem = (id, user, message, likes, email) => {
+  // console.log(user,auth.currentUser.email, email)
   const handleAddPluralMessage = (likes) =>
     likes > 1 ? " curtidas" : " curtida";
-  // Aqui criamos o template de cada post. Ela recebe como parâmetro o id, o nome do usuário, a mensagem e a quantidade de curtidas.
+
   return `
     <div class="post"  data-id="${id}">
         <div class="user-info">
@@ -31,12 +32,18 @@ export const templatePostItem = (id, user, message, likes) => {
         <div class="post-interactions">
             <span class="count-likes">${likes}</span> <span class="count-likes-message">${handleAddPluralMessage(
     likes
+
   )}</span>
         </div>
         <div class="post-actions">
-            <button class="action" data-action="delete" data-id="${id}">
-                <i class="icon">deletar post</i>
-            </button>
+        ${email === auth.currentUser.email ?`
+
+        <button class="action" data-action="delete" data-id="${id}">
+
+            <img src="./img/excluir.png" class="icon-delete">
+        </button>
+    ` : ''}
+  
             <button class="action" data-action="edit" data-id="${id}">
                 <i class="icon">editar post</i>
             </button>
@@ -111,7 +118,8 @@ export const renderPosts = (posts) => {
       post.id,
       post.user,
       post.message,
-      post.likes
+      post.likes,
+      post.userEmail
     );
     form.feed().insertAdjacentHTML("afterbegin", postElement);
   });
@@ -125,7 +133,7 @@ export const handleAddNewPost = async () => {
     return form.post().focus();
   }
 
-  await addNewPostToDb(userName, userEmail, postText, 0);
+  await addNewPostToDb(userName, auth.currentUser.email, postText, 0);
   form.post().value = "";
 };
 
@@ -152,11 +160,7 @@ export async function handleBodyClick(event) {
   const actions = {
     delete: async () => {
       const docSnap = await getDoc(doc(db, "posts", id));
-      if (docSnap.data().userEmail === userEmail) {
         await deletePostFromDb(id);
-      } else {
-        alert("Você só pode deletar seus próprios posts");
-      }
     },
     edit: async () => {
       const docSnap = await getDoc(doc(db, "posts", id));
@@ -196,3 +200,21 @@ export function bindEvents() {
 
   setupPostsSnapshot();
 }
+
+
+
+// Esta função é responsável por excluir um post do banco de dados com base em seu ID.
+export const deletePostFromDb = async (postId) => {
+  try {
+    const postRef = doc(db, "posts", postId);
+    const docSnap = await getDoc(postRef);
+
+    if (docSnap.exists()) {
+      await deleteDoc(postRef); 
+    }
+  }catch (e) {
+    console.error("Erro ao excluir post: ", e);
+  }
+};
+
+

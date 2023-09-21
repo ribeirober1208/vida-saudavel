@@ -9,7 +9,7 @@ import {
 
 import { app } from "./firebaseConfig.js";
 
-const auth = getAuth(app);
+export const auth = getAuth(app);
 
 export const loginUser = async (email, password) => {
   try {
@@ -32,4 +32,6 @@ export const loginWithGoogle = async () => {
     throw error;
   }
 };
+
+
 // "abf.ferreirac@gmail.com", "123456789"
