@@ -145,7 +145,6 @@ const modalDelete = (id) => {
   </div>
   </div>
   `
-  
  const modalContainer = document.createElement('section');
  modalContainer.classList.add("modalContainer");
  modalContainer.innerHTML = templateDelete;
@@ -161,6 +160,7 @@ const modalDelete = (id) => {
   await deletePostFromDb(id);
   modalContainer.remove();
  });
+ 
  return{ fade, modal, excluir};
 };
 
