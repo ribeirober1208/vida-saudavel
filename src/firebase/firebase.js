@@ -14,12 +14,11 @@ const auth = getAuth(app);
 export const loginUser = async (email, password) => {
   try {
     await setPersistence(auth, browserLocalPersistence);
-    const userCredential = await signInWithEmailAndPassword(
+    await signInWithEmailAndPassword(
       auth,
       email,
       password
     );
-    return userCredential.user;
   } catch (error) {
     throw error;
   }
