@@ -1,26 +1,19 @@
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../../firebase/firebaseConfig.js";
+import { logout } from "../../main.js";
+import { auth, getCurrentUserInfo } from "../../firebase/firebase.js";
 import {
-  addDoc,
-  query,
-  onSnapshot,
-  doc,
-  deleteDoc,
-  updateDoc,
-  orderBy,
-  getDoc,
-} from "firebase/firestore";
-import { db, dbPosts } from "../../firebase/firebaseConfig.js";
-import { handleGetUserName, logout } from "../../main.js";
-
-// o let userName e userEmail são variáveis globais que vão ser usadas em várias funções deste arquivo
-let userName;
-let userEmail;
+  addNewPostToDb,
+  deletePostFromDb,
+  setupPostsSnapshot,
+  updateLike,
+} from "../../firebase/firestore.js";
 
 // esta função é responsável por criar o template de cada post. Ela recebe como parâmetro o id, o nome do usuário, a mensagem e a quantidade de curtidas.
-export const templatePostItem = (id, user, message, likes) => {
-  // esta função é responsável por adicionar a palavra curtida ou curtidas de acordo com a quantidade de curtidas
+export const templatePostItem = (id, user, message, likes, email) => {
   const handleAddPluralMessage = (likes) =>
     likes > 1 ? " curtidas" : " curtida";
-  // Aqui criamos o template de cada post. Ela recebe como parâmetro o id, o nome do usuário, a mensagem e a quantidade de curtidas.
+
   return `
     <div class="post"  data-id="${id}">
         <div class="user-info">
@@ -34,73 +27,21 @@ export const templatePostItem = (id, user, message, likes) => {
   )}</span>
         </div>
         <div class="post-actions">
-            <button class="action" data-action="delete" data-id="${id}">
-                <i class="icon">deletar post</i>
-            </button>
-            <button class="action" data-action="edit" data-id="${id}">
-                <i class="icon">editar post</i>
-            </button>
+        ${email === auth.currentUser.email ?`
+        <button class="action buttonDelete" data-action="delete" data-id="${id}">
+            <img src="./img/excluir.png" class="icon-delete">
+        </button>
+        <button class="action" data-action="edit" data-id="${id}">
+        <i class="icon">editar post</i>
+        </button>
+
+    ` : ''}
             <button class="action" data-action="like" data-id="${id}">
                 <i class="icon">like action</i>
             </button>
         </div>
     </div>
 `;
-};
-
-// esta função é responsável por adicionar um novo post no banco de dados. Ela recebe como parâmetro o nome do usuário, o email do usuário, a mensagem e a quantidade de curtidas. Ela usa a função addDoc do firebase para adicionar um novo documento no banco de dados. O primeiro parâmetro é a coleção que queremos adicionar o documento. O segundo parâmetro é um objeto com os dados que queremos adicionar. O id é gerado automaticamente pelo firebase.
-export const addNewPostToDb = async (user, userEmail, message, likes) => {
-  try {
-    await addDoc(dbPosts, {
-      user,
-      userEmail,
-      message,
-      likes,
-      createdAt: new Date(),
-    });
-  } catch (e) {
-    console.error("Error adding document: ", e);
-  }
-};
-
-//Esta função chamada updateLike é uma função assíncrona (async) que toma um id como argumento e tem o objetivo de atualizar a quantidade de curtidas (likes) e a lista de usuários que curtiram um post em um banco de dados Firestore.
-export const updateLike = async (id) => {
-  try {
-    const postRef = doc(db, "posts", id);
-
-    const docSnap = await getDoc(postRef);
-
-    if (docSnap.exists()) {
-      let likes = docSnap.data().likes || 0;
-      let likesUsers = docSnap.data().likesUsers || [];
-
-      if (!likesUsers.includes(userEmail)) {
-        likes += 1;
-        likesUsers.push(userEmail);
-
-        await updateDoc(postRef, { likes, likesUsers, updatedAt: new Date() });
-      } else {
-        alert("Você já curtiu este post.");
-      }
-    } else {
-      console.log("No such document!");
-    }
-  } catch (e) {
-    console.error("Error updating document: ", e);
-  }
-};
-
-//Esta função chamada setupPostsSnapshot é utilizada para configurar um observador (snapshot listener) que monitora em tempo real as mudanças nos documentos em uma coleção específica (presumivelmente uma coleção de posts) no Firestore, e renderiza os posts quando há alguma alteração.
-export const setupPostsSnapshot = () => {
-  const q = query(dbPosts, orderBy("createdAt", "asc"));
-  onSnapshot(q, (snapshot) => {
-    const posts = [];
-    snapshot.forEach((doc) => {
-      posts.push({ ...doc.data(), id: doc.id });
-    });
-
-    renderPosts(posts);
-  });
 };
 
 //Esta função aceita um argumento posts, que é uma lista de objetos representando posts.
@@ -111,7 +52,8 @@ export const renderPosts = (posts) => {
       post.id,
       post.user,
       post.message,
-      post.likes
+      post.likes,
+      post.userEmail
     );
     form.feed().insertAdjacentHTML("afterbegin", postElement);
   });
@@ -125,7 +67,7 @@ export const handleAddNewPost = async () => {
     return form.post().focus();
   }
 
-  await addNewPostToDb(userName, userEmail, postText, 0);
+  await addNewPostToDb(postText);
   form.post().value = "";
 };
 
@@ -151,15 +93,14 @@ export async function handleBodyClick(event) {
 
   const actions = {
     delete: async () => {
-      const docSnap = await getDoc(doc(db, "posts", id));
-      if (docSnap.data().userEmail === userEmail) {
-        // await deletePostFromDb(id);
-      } else {
-        alert("Você só pode deletar seus próprios posts");
-      }
+       await getDoc(doc(db, "posts", id));
+       modalDelete(id);
+       
+        
     },
     edit: async () => {
       const docSnap = await getDoc(doc(db, "posts", id));
+      const { userEmail } = await getCurrentUserInfo();
       if (docSnap.data().userEmail === userEmail) {
         const newMessage = prompt("Digite uma nova mensagem:");
         if (newMessage) {
@@ -181,10 +122,6 @@ export const handleLogout = () => {
 
 // Esta função inicializa as variáveis userName e userEmail com os dados do usuário logado, e adiciona os eventos de clique nos botões de adicionar, editar e deletar post.
 export function bindEvents() {
-  const isReturnValue = true;
-  const { userName: name, email } = handleGetUserName(isReturnValue);
-  userName = name;
-  userEmail = email;
   form.addPost().removeEventListener("click", handleAddNewPost);
   form.addPost().addEventListener("click", handleAddNewPost);
 
@@ -194,5 +131,39 @@ export function bindEvents() {
   document.body.removeEventListener("click", handleBodyClick);
   document.body.addEventListener("click", handleBodyClick);
 
-  setupPostsSnapshot();
+  setupPostsSnapshot(renderPosts);
 }
+
+const modalDelete = (id) => {
+  const templateDelete = `
+  <div id="fade" class="hide"></div>
+  <div id="modal" class="hide">
+  <p class='p-modal'>Tem certeza que deseja excluir?</p>
+  <div class='button-modal'>
+  <button id="modal-excluir">Excluir</button>
+  <button id="modal-cancelar">Cancelar</button>
+  </div>
+  </div>
+  `
+ const modalContainer = document.createElement('section');
+ modalContainer.classList.add("modalContainer");
+ modalContainer.innerHTML = templateDelete;
+ document.body.appendChild(modalContainer);
+ const modal = modalContainer.querySelector('#modal')
+ const fade = modalContainer.querySelector('#fade')
+ const excluir = modalContainer.querySelector('#modal-excluir')
+ const cancelar = modalContainer.querySelector('#modal-cancelar')
+ cancelar.addEventListener('click', () =>{
+  modalContainer.remove();
+ });
+ excluir.addEventListener('click', async() =>{
+  await deletePostFromDb(id);
+  modalContainer.remove();
+ });
+ 
+ return{ fade, modal, excluir};
+};
+
+
+
+

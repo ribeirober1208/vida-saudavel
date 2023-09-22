@@ -8,8 +8,9 @@ import {
 } from "firebase/auth";
 
 import { app } from "./firebaseConfig.js";
+import { getUserByEmail } from "./firestore.js";
 
-const auth = getAuth(app);
+export const auth = getAuth(app);
 
 export const loginUser = async (email, password) => {
   try {
@@ -30,5 +31,19 @@ export const loginWithGoogle = async () => {
   } catch (error) {
     throw error;
   }
+};
+
+export const getCurrentUserInfo = async () => {
+  const userEmail = auth.currentUser.email;
+
+  const userDoc = await getUserByEmail(userEmail);
+  const userDocData = userDoc.docs[0].data();
+  console.log(userDoc, userDoc.docs);
+  const user = userDocData.name;
+
+  return {
+    userEmail,
+    user,
+  };
 };
 // "abf.ferreirac@gmail.com", "123456789"
