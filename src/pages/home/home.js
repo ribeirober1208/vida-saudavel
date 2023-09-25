@@ -27,7 +27,9 @@ export const templatePostItem = (id, user, message, likes, email) => {
   )}</span>
         </div>
         <div class="post-actions">
-        ${email === auth.currentUser.email ?`
+        ${
+          email === auth.currentUser.email
+            ? `
         <button class="action buttonDelete" data-action="delete" data-id="${id}">
             <img src="./img/excluir.png" class="icon-delete">
         </button>
@@ -35,7 +37,9 @@ export const templatePostItem = (id, user, message, likes, email) => {
         <i class="icon">editar post</i>
         </button>
 
-    ` : ''}
+    `
+            : ""
+        }
             <button class="action" data-action="like" data-id="${id}">
                 <i class="icon">like action</i>
             </button>
@@ -90,13 +94,10 @@ export async function handleBodyClick(event) {
 
   const action = target.getAttribute("data-action");
   const id = target.getAttribute("data-id");
-
   const actions = {
     delete: async () => {
-       await getDoc(doc(db, "posts", id));
-       modalDelete(id);
-       
-        
+      await getDoc(doc(db, "posts", id));
+      modalDelete(id);
     },
     edit: async () => {
       const docSnap = await getDoc(doc(db, "posts", id));
@@ -104,7 +105,7 @@ export async function handleBodyClick(event) {
       if (docSnap.data().userEmail === userEmail) {
         const newMessage = prompt("Digite uma nova mensagem:");
         if (newMessage) {
-          await editPostInDb(id, newMessage);
+          // await editPostInDb(id, newMessage);
         }
       } else {
         alert("Você só pode editar seus próprios posts");
@@ -144,26 +145,22 @@ const modalDelete = (id) => {
   <button id="modal-cancelar">Cancelar</button>
   </div>
   </div>
-  `
- const modalContainer = document.createElement('section');
- modalContainer.classList.add("modalContainer");
- modalContainer.innerHTML = templateDelete;
- document.body.appendChild(modalContainer);
- const modal = modalContainer.querySelector('#modal')
- const fade = modalContainer.querySelector('#fade')
- const excluir = modalContainer.querySelector('#modal-excluir')
- const cancelar = modalContainer.querySelector('#modal-cancelar')
- cancelar.addEventListener('click', () =>{
-  modalContainer.remove();
- });
- excluir.addEventListener('click', async() =>{
-  await deletePostFromDb(id);
-  modalContainer.remove();
- });
- 
- return{ fade, modal, excluir};
+  `;
+  const modalContainer = document.createElement("section");
+  modalContainer.classList.add("modalContainer");
+  modalContainer.innerHTML = templateDelete;
+  document.body.appendChild(modalContainer);
+  const modal = modalContainer.querySelector("#modal");
+  const fade = modalContainer.querySelector("#fade");
+  const excluir = modalContainer.querySelector("#modal-excluir");
+  const cancelar = modalContainer.querySelector("#modal-cancelar");
+  cancelar.addEventListener("click", () => {
+    modalContainer.remove();
+  });
+  excluir.addEventListener("click", async () => {
+    await deletePostFromDb(id);
+    modalContainer.remove();
+  });
+
+  return { fade, modal, excluir };
 };
-
-
-
-
