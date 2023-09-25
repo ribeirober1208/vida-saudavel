@@ -101,3 +101,16 @@ export const deletePostFromDb = async (postId) => {
     console.error("Erro ao excluir post: ", e);
   }
 };
+
+export const editPost = async (id, newMessage) => {
+  try {
+    const postRef = doc(db, "posts", id);
+    await updateDoc(postRef, {
+      message: newMessage,
+      updatedAt: new Date(),
+    });
+    console.log("Post editado com sucesso!");
+  } catch (e) {
+    console.error("Error editing document: ", e);
+  }
+};
