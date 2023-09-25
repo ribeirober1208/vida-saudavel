@@ -4,7 +4,8 @@ import { onAuthStateChanged, signOut } from "firebase/auth";
 import home from "./pages/home/index.js";
 import { bindEvents as bindHomeEvents } from "./pages/home/home.js";
 import login from "./pages/login/index.js";
-import favorite from "./pages/favorite/index.js";
+import about from "./pages/about/index.js";
+import { bindEvents as bindAboutEvents } from "./pages/about/about.js";
 import registro from "./pages/registro/index.js";
 import { bindEvents as bindRegisterEvents } from "./pages/registro/registro.js";
 import { auth, dbUsers } from "./firebase/firebaseConfig.js";
@@ -24,9 +25,9 @@ const routes = [
     isPublic: true,
   },
   {
-    path: "#favorite",
-    component: favorite,
-    bindEvents: () => {},
+    path: "#about",
+    component: about,
+    bindEvents: bindAboutEvents,
     isPublic: false,
   },
   {
@@ -115,32 +116,6 @@ const init = () => {
 
   //verifica se o usuário está logado
   handleUserLoggedIn();
-
-  // o onAuthStateChanged é um método que verifica se o usuário está logado ou não. Se o usuário estiver logado, ele vai retornar o usuário. Se o usuário não estiver logado, ele vai retornar null.
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      // O usuário está logado
-      localStorage.setItem(
-        "user",
-        JSON.stringify({
-          email: user.email,
-          uid: user.uid,
-        })
-      );
-
-      //As rotas publicas são as rotas que não precisam de login para acessar. As rotas privadas são as rotas que precisam de login para acessar. Se a tela for publica, ele redireciona para as telas de login e registro. Se a tela for privada, ele redireciona para a tela de home. tela privada seria após logado, então se trata da home e favoritos.
-      return (window.location.href = "/#home");
-    } else {
-      //se a rotas não for pública, ele vai redirecionar para a tela de login. Se a rota for pública, ele vai continuar na mesma rota.
-      const isPublicRoute = routes.find(
-        (route) => route.path === window.location.hash && route.isPublic
-      );
-
-      if (isPublicRoute) return;
-
-      return (window.location.href = "/#login");
-    }
-  });
 };
 
 window.addEventListener("load", () => {
@@ -149,6 +124,39 @@ window.addEventListener("load", () => {
 
 window.addEventListener("hashchange", () => {
   init();
+});
+
+// o onAuthStateChanged é um método que verifica se o usuário está logado ou não. Se o usuário estiver logado, ele vai retornar o usuário. Se o usuário não estiver logado, ele vai retornar null.
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    // O usuário está logado
+    localStorage.setItem(
+      "user",
+      JSON.stringify({
+        email: user.email,
+        uid: user.uid,
+      })
+    );
+
+    //As rotas publicas são as rotas que não precisam de login para acessar. As rotas privadas são as rotas que precisam de login para acessar. Se a tela for publica, ele redireciona para as telas de login e registro. Se a tela for privada, ele redireciona para a tela de home. tela privada seria após logado, então se trata da home e favoritos.
+    const isPrivateRoute = routes.find(
+      (route) => route.path === window.location.hash && !route.isPublic
+    );
+
+    if (isPrivateRoute) {
+      return;
+    }
+
+    return (window.location.href = "/#home");
+  }
+  //se a rotas não for pública, ele vai redirecionar para a tela de login. Se a rota for pública, ele vai continuar na mesma rota.
+  const isPublicRoute = routes.find(
+    (route) => route.path === window.location.hash && route.isPublic
+  );
+
+  if (isPublicRoute) return;
+
+  return (window.location.href = "/#login");
 });
 
 //código spa anterior
