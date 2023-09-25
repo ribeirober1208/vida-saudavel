@@ -109,7 +109,11 @@
     height: 20px;
     cursor: pointer;
 }
-
+.like img {
+    width: 20px;
+    height: 18px;
+    cursor: pointer;
+}
 .confirm-image,
 .cancel-image {
     gap: 10px;
@@ -177,8 +181,15 @@
     font-weight: bold;
     font-size: 17px;
     text-align: center;
+
 }
 
+nav {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+    
+}
 
 @media screen and (min-width: 768px) {
     .container-timeline .form-post #add-post {
@@ -196,5 +207,4 @@
         width: 6vw;
         height: 30px;
     }
-
 }

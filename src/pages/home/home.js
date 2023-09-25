@@ -31,18 +31,19 @@ export const templatePostItem = (id, user, message, likes, email) => {
         ${
           email === auth.currentUser.email
             ? `
-        <button class="action buttonDelete" data-action="delete" data-id="${id}">
-            <img src="./img/excluir.png" class="icon-delete">
-     <button class="action edit" data-action="edit" data-id="${id}">
-            <img src="./img/pencil.png" alt="Editar post">
-            <i class="icon"></i>
+            <button class="action buttonDelete" data-action="delete" data-id="${id}">
+              <img src="./img/excluir.png" class="icon-delete">
+            <button class="action edit" data-action="edit" data-id="${id}">
+              <img src="./img/pencil.png" alt="Editar post">
+              <i class="icon"></i>
             </button>
 
     `
             : ""
         }
-            <button class="action" data-action="like" data-id="${id}">
-                <i class="icon">like action</i>
+            <button class="action like " data-action="like" data-id="${id}">
+               <img src="./img/deslike.png" alt="Editar post">
+                <i class="icon"></i>
             </button>
         </div>
     </div>
@@ -111,6 +112,8 @@ export async function handleBodyClick(event) {
         textarea.value = postTextElement.textContent;
         textarea.id = `editTextarea-${id}`;
         postTextElement.replaceWith(textarea);
+        
+        const editActions = document.createElement("nav")
         // Adicionar um botão de confirmação
         const confirmImage = document.createElement("img");
         confirmImage.src = "./img/done.png";
@@ -127,7 +130,7 @@ export async function handleBodyClick(event) {
             alert("A nova mensagem não pode estar vazia");
           }
         });
-        postElement.appendChild(confirmImage);
+        editActions.appendChild(confirmImage);
         const cancelImage = document.createElement("img");
         cancelImage.src = "./img/cancelar.png";
         cancelImage.alt = "Cancelar Edição";
@@ -137,7 +140,8 @@ export async function handleBodyClick(event) {
           confirmImage.remove();
           cancelImage.remove();
         });
-        postElement.appendChild(cancelImage);
+        editActions.appendChild(cancelImage);
+        postElement.appendChild(editActions);
       } else {
         alert("Você só pode editar seus próprios posts");
       }
