@@ -52,10 +52,10 @@ A ideia para este produto nasceu a partir da identificação de uma lacuna no me
 
 ## 6. Testes de usabilidade e resultados
 
-Nosso teste de usabilidade apontou alguns pontos a melhorar, o que nos levou a criar uma segunda versão do protótipo. Com uma amostragem de 21 usuários, tivemos uma boa aceitação, porém algumas sugestões bem relevantes quanto as cores.
-
-<img src="./src/img/layout.png" />
+Nosso teste de usabilidade apontou alguns pontos a melhorar, o que nos levou a criar uma segunda versão do protótipo. Com uma amostragem de 21 usuários, tivemos uma boa aceitação, porém algumas sugestões bem relevantes quanto as core.
 <img src="./src/img/comentarios.png" />
+<img src="./src/img/layout.png" />
+
 
 ## 7. Protótipo de Alta fidelidade Vs2
 
@@ -100,29 +100,20 @@ imagem
 
  <p> Página em funcionamento </p>
  
- https://sap011-redes-sociais.web.app mudar o nome...
+ https://sap011-redes-sociais.web.app 
 
 ## 12. Desenvolvido por:
-
-
-<div style="display: flex; gap: 20px;">
-    <div>
-        <img loading="ale" src="https://avatars.githubusercontent.com/u/119016766?s=96&v=4" width=100><br>
-        <a href="https://github.com/ribeirober1208">Alessandra Ribeiro</a>
-    </div>
-
-    <div>
-        <img loading="ana" src="https://avatars.githubusercontent.com/u/127709254?v=4" width=100><br>
-        <a href="https://github.com/anabfer">Ana Beatriz</a>
-    </div>
-
-    <div>
-        <img loading="lazy" src="https://avatars.githubusercontent.com/u/117682146?s=400&u=fb1bd6336cde2b5f4c0fd922206c20e89804b67b&v=4" width=100><br>
-        <a href="https://github.com/belatenorio">Isabela Tenório</a>
-    </div>
-
-    <div>
-        <img loading="iris" src="https://avatars.githubusercontent.com/u/78813321?v=4" width=100><br>
-        <a href="https://github.com/irixalmeida">Iris Almeida</a>
-    </div>
+<div style="display: flex; gap: 20px;">  
+  <img loading="ale" src="https://avatars.githubusercontent.com/u/119016766?s=96&v=4" width=100><br>
+    <a href="https://github.com/ribeirober1208">Alessandra Ribeiro</a>
+   
+ <img loading="ana" src="https://avatars.githubusercontent.com/u/127709254?v=4" width=100><br>
+    <a href="https://github.com/anabfer">Ana Beatriz</a>
+    
+<img loading="lazy" src="https://avatars.githubusercontent.com/u/117682146?s=400&u=fb1bd6336cde2b5f4c0fd922206c20e89804b67b&v=4" width=100><br>
+   <a href="https://github.com/belatenorio">Isabela Tenório</a>
+    
+<img loading="iris" src="https://avatars.githubusercontent.com/u/78813321?v=4" width=100><br>
+  <a href="https://github.com/irixalmeida">Iris Almeida</a>
+   
 </div>
