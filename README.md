@@ -4,20 +4,20 @@
 * [2. Tema e Usuário](#2-tema-e-usuario)
 * [3. Histórias de usuário e critérios de aceitação](#3-histórias-de-usuario-e-criterios-de-aceitacao)
 * [4. Protótipo de baixa fidelidade](#4-prototipo-de-baixa-fidelidade)
-* [5. Protótipo de Alta fidelidade Vs1](#6-protótipo-de-alta-fidelidade-vs1)
-* [6. Teste de usabilidade e resultados](#5-teste-de-usabilidade-e-resultados)
-* [7. Protótipo de Alta fidelidade Vs2](#6-protótipo-de-alta-fidelidade-vs2)
-* [8. Critérios de aceitação mínimos do projeto](#5-criterios-de-aceitação-mínimos-do-projeto)
-* [9. Testes unitários](#7-testes-unitarios)
-* [10. Tecnologias aplicadas](#7-tecnologias-aplicadas)
-* [11. Resultado Final](#7-rsultado-final)
-* [12. Desenvolvido por:](#7-entrega)
+* [5. Protótipo de Alta fidelidade Vs1](#5-protótipo-de-alta-fidelidade-vs1)
+* [6. Teste de usabilidade e resultados](#6-teste-de-usabilidade-e-resultados)
+* [7. Protótipo de Alta fidelidade Vs2](#7-protótipo-de-alta-fidelidade-vs2)
+* [8. Critérios de aceitação mínimos do projeto](#8-criterios-de-aceitação-mínimos-do-projeto)
+* [9. Testes unitários](#9-testes-unitarios)
+* [10. Tecnologias aplicadas](#10-tecnologias-aplicadas)
+* [11. Resultado Final](#11-resultado-final)
+* [12. Desenvolvido por:](#12-entrega)
 
 ***
 
 
 <div style="text-align: center;">
-   <img src="./src/img/Logo.png" width="250" height="220"/>
+   <img src="./src/img/Logo.png" width="300" height="280"/>
 </div>
 
 
@@ -52,7 +52,8 @@ A ideia para este produto nasceu a partir da identificação de uma lacuna no me
 
 ## 6. Testes de usabilidade e resultados
 
-Nosso teste de usabilidade apontou alguns pontos a melhorar, o que nos levou a criar uma segunda versão do protótipo. Com uma amostragem de 21 usuários, tivemos uma boa aceitação, porém algumas sugestões bem relevantes quanto as core.
+Nosso teste de usabilidade apontou alguns pontos a melhorar, o que nos levou a criar uma segunda versão do protótipo. Com uma amostragem de 21 usuários, tivemos uma boa aceitação, porém algumas sugestões bem relevantes quanto as cores.
+
 <img src="./src/img/comentarios.png" />
 <img src="./src/img/layout.png" />
 
@@ -103,6 +104,7 @@ imagem
  https://sap011-redes-sociais.web.app 
 
 ## 12. Desenvolvido por:
+
 <div style="display: flex; gap: 20px;">  
   <img loading="ale" src="https://avatars.githubusercontent.com/u/119016766?s=96&v=4" width=100><br>
     <a href="https://github.com/ribeirober1208">Alessandra Ribeiro</a>
