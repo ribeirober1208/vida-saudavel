@@ -83,7 +83,7 @@ Baseado nos resultados dos testes chegamos a versão final do projeto.
 ## 9. Testes unitários
 Os testes de unidade devem cobrir no mínimo 70% de statements, functions, lines e branches.
 
-imagem
+ <img src="./src/img/teste.png"/>
 
 ## 10.Tecnologias aplicadas
 

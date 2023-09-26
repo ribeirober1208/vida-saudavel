@@ -28,9 +28,8 @@ export const templatePostItem = (id, user, message, likes, email) => {
   )}</span>
         </div>
         <div class="post-actions">
-        ${
-          email === auth.currentUser.email
-            ? `
+        ${email === auth.currentUser.email
+      ? `
             <button class="action buttonDelete" data-action="delete" data-id="${id}">
               <img src="./img/excluir.png" class="icon-delete">
             <button class="action edit" data-action="edit" data-id="${id}">
@@ -39,8 +38,8 @@ export const templatePostItem = (id, user, message, likes, email) => {
             </button>
 
     `
-            : ""
-        }
+      : ""
+    }
             <button class="action like " data-action="like" data-id="${id}">
                <img src="./img/deslike.png" alt="Editar post">
                 <i class="icon"></i>
@@ -112,9 +111,7 @@ export async function handleBodyClick(event) {
         textarea.value = postTextElement.textContent;
         textarea.id = `editTextarea-${id}`;
         postTextElement.replaceWith(textarea);
-        
-        const editActions = document.createElement("nav")
-        // Adicionar um botão de confirmação
+        const editActions = document.createElement("nav");
         const confirmImage = document.createElement("img");
         confirmImage.src = "./img/done.png";
         confirmImage.alt = "Confirmar Edição";
