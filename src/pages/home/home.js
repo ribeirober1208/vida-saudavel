@@ -118,6 +118,7 @@ export async function handleBodyClick(event) {
       const docSnap = await getDoc(doc(db, "posts", id));
       const userEmail = auth.currentUser.email;
       if (docSnap.data().userEmail === userEmail) {
+
         const postElement = document.querySelector(`[data-id="${id}"]`);
         const postTextElement = postElement.querySelector(".post-text");
         const textarea = document.createElement("textarea");
@@ -154,6 +155,7 @@ export async function handleBodyClick(event) {
         });
         editActions.appendChild(cancelImage);
         postElement.appendChild(editActions);
+
       } else {
         alert("Você só pode editar seus próprios posts");
       }

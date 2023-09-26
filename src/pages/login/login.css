@@ -76,6 +76,7 @@ input::placeholder{
     top: 28px; /* Centraliza verticalmente */
     transform: translateY(-50%);
     width: 26px;
+
 }
 .input-container{
   position: relative;
