@@ -50,34 +50,29 @@ export const addNewPostToDb = async (message, likes = 0) => {
 
 //Esta função chamada updateLike é uma função assíncrona (async) que toma um id como argumento e tem o objetivo de atualizar a quantidade de curtidas (likes) e a lista de usuários que curtiram um post em um banco de dados Firestore.
 export const updateLike = async (id) => {
-  try {
-    const postRef = doc(db, "posts", id);
+  const postRef = doc(db, "posts", id);
 
-    const docSnap = await getDoc(postRef);
-    const { userEmail } = await getCurrentUserInfo();
+  const docSnap = await getDoc(postRef);
+  const { userEmail } = await getCurrentUserInfo();
+  if (docSnap.exists()) {
+    let likes = docSnap.data().likes || 0;
+    let likesUsers = docSnap.data().likesUsers || [];
 
-    if (docSnap.exists()) {
-      let likes = docSnap.data().likes || 0;
-      let likesUsers = docSnap.data().likesUsers || [];
+    if (!likesUsers.includes(userEmail)) {
+      likes += 1;
+      likesUsers.push(userEmail);
 
-      if (!likesUsers.includes(userEmail)) {
-        likes += 1;
-        likesUsers.push(userEmail);
-
-        await updateDoc(postRef, { likes, likesUsers, updatedAt: new Date() });
-      } else {
-        likes -= 1;
-        const likesUserWithoutMe = likesUsers.filter(
-          (item) => item !== userEmail
-        );
-        likesUsers = likesUserWithoutMe;
-        await updateDoc(postRef, { likes, likesUsers, updatedAt: new Date() });
-      }
+      await updateDoc(postRef, { likes, likesUsers, updatedAt: new Date() });
     } else {
-      console.log("No such document!");
+      likes -= 1;
+      const likesUserWithoutMe = likesUsers.filter(
+        (item) => item !== userEmail
+      );
+      likesUsers = likesUserWithoutMe;
+      await updateDoc(postRef, { likes, likesUsers, updatedAt: new Date() });
     }
-  } catch (e) {
-    console.error("Error updating document: ", e);
+  } else {
+    console.log("No such document!");
   }
 };
 
@@ -104,5 +99,18 @@ export const deletePostFromDb = async (postId) => {
     }
   } catch (e) {
     console.error("Erro ao excluir post: ", e);
+  }
+};
+
+export const editPost = async (id, newMessage) => {
+  try {
+    const postRef = doc(db, "posts", id);
+    await updateDoc(postRef, {
+      message: newMessage,
+      updatedAt: new Date(),
+    });
+    console.log("Post editado com sucesso!");
+  } catch (e) {
+    console.error("Error editing document: ", e);
   }
 };

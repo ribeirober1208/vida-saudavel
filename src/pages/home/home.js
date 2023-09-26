@@ -5,17 +5,25 @@ import { auth, getCurrentUserInfo } from "../../firebase/firebase.js";
 import {
   addNewPostToDb,
   deletePostFromDb,
+  editPost,
   setupPostsSnapshot,
   updateLike,
 } from "../../firebase/firestore.js";
 
 // esta função é responsável por criar o template de cada post. Ela recebe como parâmetro o id, o nome do usuário, a mensagem e a quantidade de curtidas.
-export const templatePostItem = (id, user, message, likes, email) => {
+export const templatePostItem = (
+  id,
+  user,
+  message,
+  likes,
+  email,
+  likesUsers
+) => {
   const handleAddPluralMessage = (likes) =>
     likes > 1 ? " curtidas" : " curtida";
 
   return `
-    <div class="post"  data-id="${id}">
+    <div class="post" data-id="${id}">
         <div class="user-info">
             <img src="./img/MaleUser.png" alt="user" class="user-icon">
             <p class="user-name">${user}</p>
@@ -27,17 +35,26 @@ export const templatePostItem = (id, user, message, likes, email) => {
   )}</span>
         </div>
         <div class="post-actions">
-        ${email === auth.currentUser.email ?`
-        <button class="action buttonDelete" data-action="delete" data-id="${id}">
-            <img src="./img/excluir.png" class="icon-delete">
-        </button>
-        <button class="action" data-action="edit" data-id="${id}">
-        <i class="icon">editar post</i>
-        </button>
+        ${
+          email === auth.currentUser.email
+            ? `
+            <button class="action buttonDelete" data-action="delete" data-id="${id}">
+              <img src="./img/excluir.png" class="icon-delete">
+            <button class="action edit" data-action="edit" data-id="${id}">
+              <img src="./img/pencil.png" alt="Editar post">
+              <i class="icon"></i>
+            </button>
 
-    ` : ''}
-            <button class="action" data-action="like" data-id="${id}">
-                <i class="icon">like action</i>
+    `
+            : ""
+        }
+            <button class="action like " data-action="like" data-id="${id}">
+               <img src="./img/${
+                 likesUsers.includes(auth.currentUser.email)
+                   ? "deslike"
+                   : "like"
+               }.png" alt="Editar post">
+                <i class="icon"></i>
             </button>
         </div>
     </div>
@@ -53,7 +70,8 @@ export const renderPosts = (posts) => {
       post.user,
       post.message,
       post.likes,
-      post.userEmail
+      post.userEmail,
+      post.likesUsers
     );
     form.feed().insertAdjacentHTML("afterbegin", postElement);
   });
@@ -90,22 +108,54 @@ export async function handleBodyClick(event) {
 
   const action = target.getAttribute("data-action");
   const id = target.getAttribute("data-id");
-
   const actions = {
     delete: async () => {
-       await getDoc(doc(db, "posts", id));
-       modalDelete(id);
-       
-        
+      await getDoc(doc(db, "posts", id));
+      modalDelete(id);
     },
+    //função editar post parte I
     edit: async () => {
       const docSnap = await getDoc(doc(db, "posts", id));
-      const { userEmail } = await getCurrentUserInfo();
+      const userEmail = auth.currentUser.email;
       if (docSnap.data().userEmail === userEmail) {
-        const newMessage = prompt("Digite uma nova mensagem:");
-        if (newMessage) {
-          // await editPostInDb(id, newMessage);
-        }
+
+        const postElement = document.querySelector(`[data-id="${id}"]`);
+        const postTextElement = postElement.querySelector(".post-text");
+        const textarea = document.createElement("textarea");
+        textarea.value = postTextElement.textContent;
+        textarea.id = `editTextarea-${id}`;
+        postTextElement.replaceWith(textarea);
+
+        const editActions = document.createElement("nav");
+        // Adicionar um botão de confirmação
+        const confirmImage = document.createElement("img");
+        confirmImage.src = "./img/done.png";
+        confirmImage.alt = "Confirmar Edição";
+        confirmImage.classList.add("confirm-image");
+        confirmImage.addEventListener("click", async () => {
+          const newMessage = document.getElementById(
+            `editTextarea-${id}`
+          ).value;
+          if (newMessage.trim() !== "") {
+            await editPost(id, newMessage);
+            // ...
+          } else {
+            alert("A nova mensagem não pode estar vazia");
+          }
+        });
+        editActions.appendChild(confirmImage);
+        const cancelImage = document.createElement("img");
+        cancelImage.src = "./img/cancelar.png";
+        cancelImage.alt = "Cancelar Edição";
+        cancelImage.classList.add("cancel-image");
+        cancelImage.addEventListener("click", () => {
+          textarea.replaceWith(postTextElement);
+          confirmImage.remove();
+          cancelImage.remove();
+        });
+        editActions.appendChild(cancelImage);
+        postElement.appendChild(editActions);
+
       } else {
         alert("Você só pode editar seus próprios posts");
       }
@@ -144,26 +194,22 @@ const modalDelete = (id) => {
   <button id="modal-cancelar">Cancelar</button>
   </div>
   </div>
-  `
- const modalContainer = document.createElement('section');
- modalContainer.classList.add("modalContainer");
- modalContainer.innerHTML = templateDelete;
- document.body.appendChild(modalContainer);
- const modal = modalContainer.querySelector('#modal')
- const fade = modalContainer.querySelector('#fade')
- const excluir = modalContainer.querySelector('#modal-excluir')
- const cancelar = modalContainer.querySelector('#modal-cancelar')
- cancelar.addEventListener('click', () =>{
-  modalContainer.remove();
- });
- excluir.addEventListener('click', async() =>{
-  await deletePostFromDb(id);
-  modalContainer.remove();
- });
- 
- return{ fade, modal, excluir};
+  `;
+  const modalContainer = document.createElement("section");
+  modalContainer.classList.add("modalContainer");
+  modalContainer.innerHTML = templateDelete;
+  document.body.appendChild(modalContainer);
+  const modal = modalContainer.querySelector("#modal");
+  const fade = modalContainer.querySelector("#fade");
+  const excluir = modalContainer.querySelector("#modal-excluir");
+  const cancelar = modalContainer.querySelector("#modal-cancelar");
+  cancelar.addEventListener("click", () => {
+    modalContainer.remove();
+  });
+  excluir.addEventListener("click", async () => {
+    await deletePostFromDb(id);
+    modalContainer.remove();
+  });
+
+  return { fade, modal, excluir };
 };
-
-
-
-
