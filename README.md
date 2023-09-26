@@ -11,7 +11,7 @@
 * [9. Testes unitários](#9-testes-unitarios)
 * [10. Tecnologias aplicadas](#10-tecnologias-aplicadas)
 * [11. Resultado Final](#11-resultado-final)
-* [12. Desenvolvido por:](#12-entrega)
+* [12. Desenvolvido por](#12-desenvolvido-por)
 
 ***
 
