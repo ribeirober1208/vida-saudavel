@@ -21,7 +21,7 @@ export const routes = [
   {
     path: "#login",
     component: login,
-    bindEvents: () => {},
+    bindEvents: () => { },
     isPublic: true,
   },
   {
@@ -116,8 +116,8 @@ export const init = () => {
 
   //verifica se o usuário está logado
   handleUserLoggedIn();
-};
 
+};
 window.addEventListener("load", () => {
   init();
 });
