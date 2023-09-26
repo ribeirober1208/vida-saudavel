@@ -1,15 +1,12 @@
 import { jest } from "@jest/globals";
-import { loginWithGoogle, loginUser } from "../src/firebase/firebase.js";
-import {
-  setPersistence,
-  signInWithEmailAndPassword,
-  signInWithPopup,
-  GoogleAuthProvider,
-  getAuth
-} from "firebase/auth";
+import { loginUser, loginWithGoogle, getCurrentUserInfo } from "../src/firebase/firebase.js";
+import { setPersistence, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { getUserByEmail } from "../src/firebase/firestore.js";
+import { getAuth } from "firebase/auth";
 
 jest.mock("firebase/auth");
-
+jest.mock("firebase/firestore");
+jest.mock("../src/firebase/firestore.js");
 describe("loginUser", () => {
   it("deveria chamar setPersistence", async () => {
     setPersistence.mockResolvedValue();
@@ -41,6 +38,43 @@ describe('loginWithGoogle', () => {
   it("deveria capturar e lançar um erro", async () => {
     signInWithPopup.mockRejectedValue(new Error("Erro simulado"));
     await expect(loginWithGoogle()).rejects.toThrow("Erro simulado");
+  });
+});
+
+describe("getCurrentUserInfo", () => {
+  it("deveria armazenar email e nome do usuário atual", async () => {
+    const userEmail = "any@email.com";
+
+    // Configurar um objeto auth simulado com currentUser
+    const auth = {
+      currentUser: {
+        email: userEmail,
+      },
+    };
+
+    // Substituir getAuth pelo mock que retorna o objeto auth simulado
+    getAuth.mockReturnValue(auth);
+
+    getUserByEmail.mockResolvedValue({
+      docs: [
+        {
+          data: () => ({
+            name: "Nome do Usuário",
+          }),
+        },
+      ],
+    });
+
+    const userInfo = await getCurrentUserInfo();
+
+    expect(getUserByEmail).toHaveBeenCalledTimes(1);
+    expect(getUserByEmail).toHaveBeenCalledWith(userEmail);
+
+    // Verificar se a função getCurrentUserInfo retornou os valores esperados
+    expect(userInfo).toEqual({
+      userEmail,
+      user: "Nome do Usuário",
+    });
   });
 });
 

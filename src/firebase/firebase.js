@@ -34,8 +34,8 @@ export const loginWithGoogle = async () => {
 };
 
 export const getCurrentUserInfo = async () => {
-  const userEmail = auth.currentUser.email;
-
+  const userEmail = getAuth().currentUser.email;
+  console.log(auth);
   const userDoc = await getUserByEmail(userEmail);
   const userDocData = userDoc.docs[0].data();
   console.log(userDoc, userDoc.docs);
