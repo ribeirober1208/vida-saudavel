@@ -1,4 +1,25 @@
-<img src="./src/img/Logo.png" width="100" height="100"/>
+## Índice
+
+* [1. Sobre o projeto](#1-sobre-o-projeto)
+* [2. Tema e Usuário](#2-tema-e-usuario)
+* [3. Histórias de usuário e critérios de aceitação](#3-histórias-de-usuario-e-criterios-de-aceitacao)
+* [4. Protótipo de baixa fidelidade](#4-prototipo-de-baixa-fidelidade)
+* [5. Protótipo de Alta fidelidade Vs1](#6-protótipo-de-alta-fidelidade-vs1)
+* [6. Teste de usabilidade e resultados](#5-teste-de-usabilidade-e-resultados)
+* [7. Protótipo de Alta fidelidade Vs2](#6-protótipo-de-alta-fidelidade-vs2)
+* [8. Critérios de aceitação mínimos do projeto](#5-criterios-de-aceitação-mínimos-do-projeto)
+* [9. Testes unitários](#7-testes-unitarios)
+* [10. Tecnologias aplicadas](#7-tecnologias-aplicadas)
+* [11. Resultado Final](#7-rsultado-final)
+* [12. Desenvolvido por:](#7-entrega)
+
+***
+
+
+<div style="text-align: center;">
+   <img src="./src/img/Logo.png" width="250" height="220"/>
+</div>
+
 
 ## 1. Sobre o projeto
 
@@ -27,7 +48,7 @@ A ideia para este produto nasceu a partir da identificação de uma lacuna no me
 
 <a href="https://www.figma.com/proto/nVcr69GfJRnheHFSWDHOGV/Redes-Sociais?type=design&node-id=71-3&t=KYOfdIAcGbPRhEWK-0&scaling=min-zoom&page-id=0%3A1&starting-point-node-id=71%3A3" target="_blank"> Protótipo de Alta Fidelidade Vs1 </a>
 
-<img src="./src/img/alta_vs1.png" />
+<img src="./src/img/alta_vs1.png" width="550" height="450"/>
 
 ## 6. Testes de usabilidade e resultados
 
@@ -84,14 +105,24 @@ imagem
 ## 12. Desenvolvido por:
 
 
-<img loading="ale" src="https://avatars.githubusercontent.com/u/119016766?s=96&v=4" width=100><br>
-[Alessandra Ribeiro](https://github.com/ribeirober1208)
+<div style="display: flex; gap: 20px;">
+    <div>
+        <img loading="ale" src="https://avatars.githubusercontent.com/u/119016766?s=96&v=4" width=100><br>
+        <a href="https://github.com/ribeirober1208">Alessandra Ribeiro</a>
+    </div>
 
-<<img loading="ana" src="https://avatars.githubusercontent.com/u/127709254?v=4" width=100><br>
-[Ana Beatriz](https://github.com/anabfer)
+    <div>
+        <img loading="ana" src="https://avatars.githubusercontent.com/u/127709254?v=4" width=100><br>
+        <a href="https://github.com/anabfer">Ana Beatriz</a>
+    </div>
 
-<<img loading="lazy" src="https://avatars.githubusercontent.com/u/117682146?s=400&u=fb1bd6336cde2b5f4c0fd922206c20e89804b67b&v=4" width=100><br>
-[Isabela Tenório](https://github.com/belatenorio)
+    <div>
+        <img loading="lazy" src="https://avatars.githubusercontent.com/u/117682146?s=400&u=fb1bd6336cde2b5f4c0fd922206c20e89804b67b&v=4" width=100><br>
+        <a href="https://github.com/belatenorio">Isabela Tenório</a>
+    </div>
 
-<<img loading="lazy" src="https://avatars.githubusercontent.com/u/78813321?v=4" width=100><br>
-[Iris Almeida](https://github.com/irixalmeida)
+    <div>
+        <img loading="iris" src="https://avatars.githubusercontent.com/u/78813321?v=4" width=100><br>
+        <a href="https://github.com/irixalmeida">Iris Almeida</a>
+    </div>
+</div>
