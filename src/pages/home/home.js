@@ -11,12 +11,19 @@ import {
 } from "../../firebase/firestore.js";
 
 // esta função é responsável por criar o template de cada post. Ela recebe como parâmetro o id, o nome do usuário, a mensagem e a quantidade de curtidas.
-export const templatePostItem = (id, user, message, likes, email) => {
+export const templatePostItem = (
+  id,
+  user,
+  message,
+  likes,
+  email,
+  likesUsers
+) => {
   const handleAddPluralMessage = (likes) =>
     likes > 1 ? " curtidas" : " curtida";
 
   return `
-    <div class="post"  data-id="${id}">
+    <div class="post" data-id="${id}">
         <div class="user-info">
             <img src="./img/MaleUser.png" alt="user" class="user-icon">
             <p class="user-name">${user}</p>
@@ -41,7 +48,11 @@ export const templatePostItem = (id, user, message, likes, email) => {
       : ""
     }
             <button class="action like " data-action="like" data-id="${id}">
-               <img src="./img/deslike.png" alt="Editar post">
+               <img src="./img/${
+                 likesUsers.includes(auth.currentUser.email)
+                   ? "deslike"
+                   : "like"
+               }.png" alt="Editar post">
                 <i class="icon"></i>
             </button>
         </div>
@@ -58,7 +69,8 @@ export const renderPosts = (posts) => {
       post.user,
       post.message,
       post.likes,
-      post.userEmail
+      post.userEmail,
+      post.likesUsers
     );
     form.feed().insertAdjacentHTML("afterbegin", postElement);
   });
@@ -105,6 +117,7 @@ export async function handleBodyClick(event) {
       const docSnap = await getDoc(doc(db, "posts", id));
       const userEmail = auth.currentUser.email;
       if (docSnap.data().userEmail === userEmail) {
+
         const postElement = document.querySelector(`[data-id="${id}"]`);
         const postTextElement = postElement.querySelector(".post-text");
         const textarea = document.createElement("textarea");
@@ -139,6 +152,7 @@ export async function handleBodyClick(event) {
         });
         editActions.appendChild(cancelImage);
         postElement.appendChild(editActions);
+
       } else {
         alert("Você só pode editar seus próprios posts");
       }
