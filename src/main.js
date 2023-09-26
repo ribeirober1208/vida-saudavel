@@ -11,7 +11,7 @@ import { bindEvents as bindRegisterEvents } from "./pages/registro/registro.js";
 import { auth, dbUsers } from "./firebase/firebaseConfig.js";
 
 // A const routes é um array de objetos que contém as rotas da aplicação. Cada objeto contém a rota, o componente, a função que vai ser executada quando a rota for acessada e se a rota é pública ou privada. Isso permite que o usuário só acesse as rotas privadas se estiver logado.
-const routes = [
+export const routes = [
   {
     path: "#home",
     component: home,
@@ -57,7 +57,7 @@ export const handleGetUserName = (isReturnValue = false) => {
 
     const userNameElement = document.querySelector("#user-name");
 
-    userNameElement.innerHTML = userName;
+    if (userNameElement) userNameElement.innerHTML = userName;
   }
 
   if (isReturnValue) {
@@ -69,7 +69,7 @@ export const handleGetUserName = (isReturnValue = false) => {
 };
 
 //esta função é responsável por verificar se o usuário está logado
-const handleUserLoggedIn = async () => {
+export const handleUserLoggedIn = async () => {
   const userParsed = JSON.parse(localStorage.getItem("user"));
   //Se o usuário estiver logado, ele vai pegar o email do usuário e vai fazer uma query no banco de dados
   if (userParsed) {
@@ -100,8 +100,8 @@ export async function logout() {
   }
 }
 
-const main = document.querySelector("#root");
-const init = () => {
+export const init = () => {
+  const main = document.querySelector("#root");
   console.log("hashchange", window.location.hash);
   //mudança de rota hashchange
   main.innerHTML = "";

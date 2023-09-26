@@ -45,6 +45,7 @@
     "no-restricted-syntax": 0,
     "import/named": 0,
     "import/no-unresolved": 0,
+    "no-proto": 0,
     "no-param-reassign": ["error", { "props": false }],
     "import/extensions": 0,
     "import/prefer-default-export": 0,

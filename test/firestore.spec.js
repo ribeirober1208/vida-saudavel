@@ -35,7 +35,7 @@ jest.mock("firebase/firestore", () => ({
 jest.mock("../src/firebase/firebase", () => ({
   getCurrentUserInfo: jest.fn(() => ({ userEmail: "testEmail@test.com" })),
 }));
-
+// teste para verificar se a função createUserInfo está sendo chamada
 describe("Firebase functions tests", () => {
   beforeEach(() => {
     jest.clearAllMocks();

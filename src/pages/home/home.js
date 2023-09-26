@@ -17,7 +17,7 @@ export const templatePostItem = (
   message,
   likes,
   email,
-  likesUsers
+  likesUsers = []
 ) => {
   const handleAddPluralMessage = (likes) =>
     likes > 1 ? " curtidas" : " curtida";
