@@ -1,5 +1,6 @@
 import { createUser } from "../../firebase/firebaseConfig";
 import { createUserInfo, getUserByEmail } from "../../firebase/firestore";
+import show from "../../img/Show.png";
 
 //Aqui é onde eu pego os elementos do html
 export const form = {
@@ -156,8 +157,8 @@ export function toggleTypePassword() {
 
   inputElement.type = type;
 
-  const icon = type === "password" ? "Hide" : "Show";
-  this.setAttribute("src", `./img/${icon}.png`);
+  const icon = type === "password" ? hide : show;
+  this.setAttribute("src", `../../img/${icon}.png`);
 }
 // Essa função é responsável por criar a conta no firebase
 export async function createAccountFirebase() {
