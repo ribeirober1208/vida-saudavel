@@ -2,6 +2,14 @@ import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../firebase/firebaseConfig.js";
 import { logout } from "../../main.js";
 import { auth, getCurrentUserInfo } from "../../firebase/firebase.js";
+import cancelar from "../../img/cancelar.png";   
+import done from "../../img/done.png";  
+import excluir from "../../img/excluir.png";  
+import pencil from "../../img/pencil.png";  
+import male from "../../img/MaleUser.png"; 
+import deslike from "../../img/deslike.png";
+import like from "../../img/like.png"; 
+
 import {
   addNewPostToDb,
   deletePostFromDb,
@@ -25,7 +33,7 @@ export const templatePostItem = (
   return `
     <div class="post" data-id="${id}">
         <div class="user-info">
-            <img src="./img/MaleUser.png" alt="user" class="user-icon">
+            <img src=${male} alt="user" class="user-icon">
             <p class="user-name">${user}</p>
         </div>
         <p class="post-text">${message}</p>
@@ -38,9 +46,9 @@ export const templatePostItem = (
         ${email === auth.currentUser.email
       ? `
             <button class="action buttonDelete" data-action="delete" data-id="${id}">
-              <img src="./img/excluir.png" class="icon-delete">
+              <img src=${excluir} class="icon-delete">
             <button class="action edit" data-action="edit" data-id="${id}">
-              <img src="./img/pencil.png" alt="Editar post">
+              <img src=${pencil}  alt="Editar post">
               <i class="icon"></i>
             </button>
 
@@ -48,13 +56,10 @@ export const templatePostItem = (
       : ""
     }
             <button class="action like " data-action="like" data-id="${id}">
-               <img src="./img/${
-                 likesUsers.includes(auth.currentUser.email)
-                   ? "deslike"
-                   : "like"
-               }.png" alt="Editar post">
+               <img src="${likesUsers.includes(auth.currentUser.email) ? deslike: like}" alt="Curtir">
                 <i class="icon"></i>
             </button>
+
         </div>
     </div>
 `;
@@ -126,7 +131,7 @@ export async function handleBodyClick(event) {
         postTextElement.replaceWith(textarea);
         const editActions = document.createElement("nav");
         const confirmImage = document.createElement("img");
-        confirmImage.src = "./img/done.png";
+        confirmImage.src = done;
         confirmImage.alt = "Confirmar Edição";
         confirmImage.classList.add("confirm-image");
         confirmImage.addEventListener("click", async () => {
@@ -142,7 +147,7 @@ export async function handleBodyClick(event) {
         });
         editActions.appendChild(confirmImage);
         const cancelImage = document.createElement("img");
-        cancelImage.src = "./img/cancelar.png";
+        cancelImage.src =  cancelar;
         cancelImage.alt = "Cancelar Edição";
         cancelImage.classList.add("cancel-image");
         cancelImage.addEventListener("click", () => {
