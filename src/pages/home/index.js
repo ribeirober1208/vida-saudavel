@@ -1,7 +1,7 @@
-import heart from "../../img/Heart.png";  
-import home from "../../img/Home.png";   
-import Logout from "../../img/Logout.png"; 
-import user from "../../img/MaleUser.png";  
+import heart from "../../img/Heart.png";
+import home from "../../img/Home.png";
+import Logout from "../../img/Logout.png";
+import user from "../../img/MaleUser.png";
 
 export default () => {
   const container = document.createElement("div");

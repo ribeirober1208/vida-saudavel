@@ -5,6 +5,7 @@ import {
   updateDoc,
   deleteDoc,
   onSnapshot,
+  doc,
 } from "firebase/firestore";
 
 import {
@@ -14,6 +15,7 @@ import {
   updateLike,
   setupPostsSnapshot,
   deletePostFromDb,
+  editPost,
 } from "../src/firebase/firestore";
 import { getCurrentUserInfo } from "../src/firebase/firebase";
 
@@ -30,6 +32,7 @@ jest.mock("firebase/firestore", () => ({
   collection: jest.fn(),
   doc: jest.fn(),
   getFirestore: jest.fn(() => ({})),
+  doc: jest.fn(),
 }));
 
 jest.mock("../src/firebase/firebase", () => ({
@@ -160,6 +163,7 @@ describe("Firebase functions tests", () => {
     expect(console.log).toHaveBeenCalledWith("No such document!");
   });
 
+  //Teste verifica se a função updateLike está funcionando corretamente ao lidar com uma postagem que já foi curtida, realizando as atualizações necessárias nos dados da postagem no banco de dados.
   it("should handle a previously liked post in updateLike", async () => {
     const mockData = {
       exists: () => true,
@@ -177,7 +181,7 @@ describe("Firebase functions tests", () => {
       updatedAt: expect.anything(),
     });
   });
-
+  // este teste está verificando se o código está tratando adequadamente um erro que pode ocorrer ao tentar excluir uma postagem do banco de dados.
   it("should handle error when deleting post", async () => {
     const errorMessage = "Erro ao excluir post";
     deleteDoc.mockRejectedValueOnce(new Error(errorMessage));
@@ -185,6 +189,46 @@ describe("Firebase functions tests", () => {
     await deletePostFromDb("testId");
     expect(console.error).toHaveBeenCalledWith(
       "Erro ao excluir post: ",
+      expect.any(Error)
+    );
+  });
+});
+
+describe("editPost", () => {
+  // Isto limpa os mocks após cada teste
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it("should edit the post successfully", async () => {
+    // Mock do console.log para verificarmos se ele é chamado
+    console.log = jest.fn();
+
+    const mockId = "sampleId";
+    const mockMessage = "Updated Message";
+    await editPost(mockId, mockMessage);
+
+    // Verifica se doc foi chamado com os argumentos corretos
+    expect(doc).toHaveBeenNthCalledWith(2, {}, "posts", mockId);
+
+    // Verifica se a mensagem de sucesso foi registrada
+    expect(console.log).toHaveBeenCalledWith("Post editado com sucesso!");
+  });
+
+  it("should handle error when editing post", async () => {
+    // Mock do console.error para verificarmos se ele é chamado
+    console.error = jest.fn();
+
+    // Fazemos o mock do updateDoc para rejeitar a promessa e simular um erro
+    updateDoc.mockRejectedValueOnce(new Error("Editing error"));
+
+    const mockId = "sampleId";
+    const mockMessage = "Updated Message";
+    await editPost(mockId, mockMessage);
+
+    // Verifica se o erro foi registrado
+    expect(console.error).toHaveBeenCalledWith(
+      "Error editing document: ",
       expect.any(Error)
     );
   });
